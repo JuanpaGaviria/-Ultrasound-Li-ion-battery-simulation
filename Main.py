@@ -30,8 +30,7 @@ materials, materials_summary, materials_number, materials_thickness, material_di
                                                                                              battery_map, dt)
 print(interphase_position)
 
-H = fdm_implicit(materials_summary, interphase_position, nodes, dx, x, time, n_steps, dt,
-                 initial_velocity, amplitude, period, input_time, battery_map, summary_e_modulus, gamma_map,
-                 phi_map)
+H = fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, battery_map, summary_e_modulus, 
+                    gamma_map, phi_map)
 
 #np.savetxt(f'h_charged.csv', H, delimiter=',')
