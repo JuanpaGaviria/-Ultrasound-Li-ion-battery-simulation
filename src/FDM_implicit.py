@@ -312,18 +312,18 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
             uj_1 = uj0
             uj0 = uj1
 
-    duration = 1000  # milliseconds
-    freq = 380  # Hz
-    winsound.Beep(freq, duration)
+    # duration = 1000  # milliseconds
+    # freq = 380  # Hz
+    # winsound.Beep(freq, duration)
 
-    for i in range(0, n_steps + 1):
-        plt.cla()  # borra pantalla anterior del plot
-        plt.xlim(0, 1.)
-        plt.ylim(-0.001, 0.001)
-        _iteration = i
-        plt.plot(x, h[:, i], color='r', label=_iteration)
-        plt.legend()
-        plt.grid()
-        plt.pause(0.00000000000000001)
+    # for i in range(0, n_steps + 1):
+    #     plt.cla()  # borra pantalla anterior del plot
+    #     plt.xlim(0, 1.)
+    #     plt.ylim(-0.001, 0.001)
+    #     _iteration = i
+    #     plt.plot(x, h[:, i], color='r', label=_iteration)
+    #     plt.legend()
+    #     plt.grid()
+    #     plt.pause(0.00000000000000001)
 
     return h

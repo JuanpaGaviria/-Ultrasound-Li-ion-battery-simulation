@@ -15,7 +15,7 @@ from src.FDM_implicit import fdm_implicit
 indexes = [2, 3]  # materials definition
 layer_number = 32  # The condition is that the numbers half must be an even number
 
-nodes, n_steps = 150, 500
+nodes, n_steps = 150, 150
 dt = 1e-7
 time = n_steps * dt
 initial_velocity, amplitude, period, input_time = 0, 2, 2, 0.1
@@ -33,4 +33,4 @@ print(interphase_position)
 H = fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, battery_map, summary_e_modulus, 
                     gamma_map, phi_map)
 
-#np.savetxt(f'h_charged.csv', H, delimiter=',')
+#np.savetxt(f'node-{nodes}-dt-{dt}.csv', H, delimiter=',')
