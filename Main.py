@@ -23,6 +23,8 @@ df = pd.read_csv(url)
 
 nodes_array = [200, 250, 300, 350, 400, 450, 500, 550, 600]
 n_steps = 1500
-dt_array = [1e-7, 1e-8, 1e-8/2, 1e-9, 1e-9/2]
+dt_array = [1e-8, 1e-9, 5e-09, 5e-10]
 
-numerical_method_f(indexes, layer_number, nodes, n_steps, dt, time, initial_velocity, amplitude, period, input_time, url, df)
+#numerical_method_f(indexes, layer_number, nodes, n_steps, dt, time, initial_velocity, amplitude, period, input_time, url, df)
+stability_f(dt_array, n_steps)
+
