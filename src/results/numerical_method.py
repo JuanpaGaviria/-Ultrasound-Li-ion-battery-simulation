@@ -15,4 +15,4 @@ def numerical_method_f(indexes, layer_number, nodes, n_steps, dt, time, initial_
     H = fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, battery_map, summary_e_modulus, 
                     gamma_map, phi_map)
 
-    np.savetxt(f'src/results/fdm_implicit/node-{nodes}-dt-{dt}.csv', H, delimiter=',')
+    np.savetxt(f'src/results/stability/dataframes/node-{nodes}-dt-{dt}.csv', H, delimiter=',')
