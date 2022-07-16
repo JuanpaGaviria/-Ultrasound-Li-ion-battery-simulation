@@ -89,4 +89,4 @@ def big_bang(indexes, df, nodes, battery_map, dt):
         phi_map.append(phi)
 
     return materials, materials_summary, materials_number, materials_thickness, material_dimensionless_length, length,\
-        dx, x, interphase_position, summary_e_modulus, gamma_map, phi_map
+        dx, x, interphase_position, _e_modulus_dict, gamma_map, phi_map

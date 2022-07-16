@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import winsound
 
 
-def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, battery_map, summary_e_modulus, 
+def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, battery_map, _e_modulus_dict, 
                     gamma_map, phi_map):
 
     # Matrix definition and vectors
@@ -76,9 +76,9 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
 
                     if node_count == interphase_node[interphase_count]:  # interphase
                         material_1 = battery_map[interphase_count]
-                        e_modulus_1 = summary_e_modulus[material_1]
+                        e_modulus_1 = _e_modulus_dict[material_1]
                         material_2 = battery_map[interphase_count + 1]
-                        e_modulus_2 = summary_e_modulus[material_2]
+                        e_modulus_2 = _e_modulus_dict[material_2]
                         formulation.alpha_m(e_modulus_1, e_modulus_2)
                         alpha = formulation.alpha
                         formulation.time_0_interphase(alpha)
@@ -244,9 +244,9 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
 
                     if node_count == interphase_node[interphase_count]:  # interface
                         material_1 = battery_map[interphase_count]
-                        e_modulus_1 = summary_e_modulus[material_1]
+                        e_modulus_1 = _e_modulus_dict[material_1]
                         material_2 = battery_map[interphase_count + 1]
-                        e_modulus_2 = summary_e_modulus[material_2]
+                        e_modulus_2 = _e_modulus_dict[material_2]
                         formulation.alpha_m(e_modulus_1, e_modulus_2)
                         alpha = formulation.alpha
                         formulation.interphase(alpha)
