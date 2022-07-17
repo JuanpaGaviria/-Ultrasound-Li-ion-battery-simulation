@@ -16,5 +16,6 @@ def numerical_method_f(indexes, layer_number, nodes, n_steps, dt, time, initial_
     H = fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, battery_map, _e_modulus_dict, 
                     gamma_map, phi_map)
 
-    np.savetxt(f'src/results/layer_number/dataframes/layer-{layer_number}.csv', H, delimiter=',')
+    name = f'nsteps-{n_steps}-nodes-{nodes}-dt-{dt}-layer-{layer_number}'
+    np.savetxt(f'src/results/layer_number/dataframes/{name}.csv', H, delimiter=',')
     print('saved: ', layer_number,'.csv')

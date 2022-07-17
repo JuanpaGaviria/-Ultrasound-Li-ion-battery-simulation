@@ -13,7 +13,7 @@ from src.results.layer_number.layer_number import layer_number_f
 10, 11: benzene electrolyte, carbon tetrachloride electrolyte 
 """
 indexes = [0, 5]  # materials definition discharged
-layer_number = 4  # The condition is that the numbers half must be an even number
+layer_number = 256  # The condition is that the numbers half must be an even number
 
 initial_velocity, amplitude, period, input_time = 0, 2, 2, 0.1
 
@@ -21,9 +21,9 @@ url = './src/database/materials_properties.csv'
 df = pd.read_csv(url)
 
 nodes_array = [300, 400, 500]
-dt = 1e-7
-nodes = 200
-n_steps = 1000
+dt = 70e-9
+nodes = 1000
+n_steps = 16500
 time = n_steps*dt
 dt_array = [1e-7, 70e-9, 5e-8]
 layers = [256, 128, 64, 32, 16, 4]

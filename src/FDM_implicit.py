@@ -163,7 +163,12 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
                             b[node_count] = formulation.b
 
                         if j > (len(_y) + 200):  # Neumann
-                            pass
+                            gamma = gamma_map[interphase_count]
+                            formulation.node_1_neumann(gamma, uj0[node_count], uj_1[node_count])
+                            a[node_count, node_count - 1] = formulation.a_i_i_1
+                            a[node_count, node_count] = formulation.a_i_i
+                            a[node_count, node_count + 1] = formulation.a_i_i1
+                            b[node_count] = formulation.b
 
                     if node_count == 1:
 
