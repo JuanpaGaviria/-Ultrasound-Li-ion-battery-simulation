@@ -1,8 +1,9 @@
 import pandas as pd
 from src.results.stability.stability import *
-from src.results.numerical_method import numerical_method_f
-from src.results.iterative_stability_results import iterative_stability_f
-from src.results.layer_number.layer_number import layer_number_f
+from src.numerical_method import numerical_method_f
+from src.iterative_stability_results import iterative_stability_f
+from src.results.layer_number.layer_number_ import layer_number_f
+
 
 
 """material selection
@@ -22,11 +23,11 @@ df = pd.read_csv(url)
 
 nodes_array = [300, 400, 500]
 dt = 70e-9
-nodes = 1000
-n_steps = 16500
+nodes = 200
+n_steps = 100
 time = n_steps*dt
 dt_array = [1e-7, 70e-9, 5e-8]
-layers = [256, 128, 64, 32, 16, 4]
+layers = [512]
 
 numerical_method_f(indexes, layer_number, nodes, n_steps, dt, time, initial_velocity, amplitude, period, input_time, url, df)
 #iterative_stability_f(indexes, layer_number, n_steps, initial_velocity, amplitude, period, input_time, url, df, nodes_array, dt_array)

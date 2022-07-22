@@ -1,10 +1,6 @@
 import numpy as np
 from .fdm_constructors import input_f
-from .fdm_constructors import StandingWave  # Standing wave
 from .fdm_constructors import InputWave  # Traveling wave
-from .fdm_constructors import BCs  # Boundary conditions
-import matplotlib.pyplot as plt
-import winsound
 
 
 def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, battery_map, _e_modulus_dict, 

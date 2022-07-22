@@ -10,4 +10,3 @@ def iterative_stability_f(indexes, layer_number, n_steps, initial_velocity,
             time = n_steps * dt
             numerical_method_f(indexes, layer_number, nodes, n_steps, dt, time, initial_velocity, amplitude,
                                 period, input_time, url, df)
-            print(i,j)
