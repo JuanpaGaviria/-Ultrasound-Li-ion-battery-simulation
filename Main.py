@@ -30,9 +30,10 @@ time = n_steps*dt
 dt_array = [1e-7, 70e-9, 5e-8]
 layers = [512]
 name = f'nodes-{nodes}-dt{dt}'
-numerical_method_implicit(indexes, layer_number, nodes, n_steps, dt, time, initial_velocity, amplitude, period, input_time, url, df, name, save=False)
+# numerical_method_implicit(indexes, layer_number, nodes, n_steps, dt, time, initial_velocity, amplitude, period, input_time, url, df, name, save=False)
 #iterative_stability_f(indexes, layer_number, n_steps, initial_velocity, amplitude, period, input_time, url, df, nodes_array, dt_array, name, save=False)
-# stability_f(dt_array, n_steps)
-#equal_data_files(n_steps, dt_array)
+stability_f(dt_array, n_steps)
+equal_data_files(n_steps, dt_array)
+heat_map_f()
 #layer_number_f(layers, indexes, nodes, n_steps, dt, time, initial_velocity, amplitude, period, input_time, url, df, name, save=False)
-# numerical_method_explicit(indexes, df, nodes, time, n_steps, name, layer_number, save=False)
+#numerical_method_explicit(indexes, df, nodes, time, n_steps, name, layer_number, save=False)

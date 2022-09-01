@@ -15,7 +15,7 @@ def stability_f(dt_array, n_steps):
     slice_dict = functions.dict_iter_number_f(dt_array, n_steps)  # Return a dict to allow the slicing of the dataframes
     print(slice_dict)
 
-    path = "C:/Users/EQ01/Desktop/Folders/Trabajo/UPB/Research group/SOH/codes/WebEquation/src/results/stability/dataframes"
+    path = "C:/Users/EQ01/Desktop/Folders/Trabajo/UPB/Research group/SOH/codes/WebEquation/src/implicit/results/stability/dataframes"
     os.chdir(path)  # Change the path to read the datasets 
     for file in os.listdir():  # for loop for all the files
         if file.endswith(".csv"):  # if they are .csv
@@ -32,7 +32,7 @@ def stability_f(dt_array, n_steps):
 def equal_data_files(n_steps, dt_array):  # Function that interpolates all the datasets to match the number of data and time
     max_time_intersection = max_time_intersection_f(n_steps, dt_array)  # Function that measure the common maxium time in all the files 
     length_dataset = lenght_dataset_f(max_time_intersection, dt_array)  # Function that measure the amount of data in the biggest file
-    path = "C:/Users/EQ01/Desktop/Folders/Trabajo/UPB/Research group/SOH/codes/WebEquation/src/results/stability/TOF_df"
+    path = "C:/Users/EQ01/Desktop/Folders/Trabajo/UPB/Research group/SOH/codes/WebEquation/src/implicit/results/stability/TOF_df"
     os.chdir(path)
 
     for file in os.listdir():
@@ -50,7 +50,7 @@ def equal_data_files(n_steps, dt_array):  # Function that interpolates all the d
 def heat_map_f():
     
     # set the path to the files
-    p = Path('C:/Users/EQ01/Desktop/Folders/Trabajo/UPB/Research group/SOH/codes/WebEquation/src/results/stability/TOF_matching_data')  
+    p = Path('C:/Users/EQ01/Desktop/Folders/Trabajo/UPB/Research group/SOH/codes/WebEquation/src/implicit/results/stability/TOF_matching_data')  
 
     # create a list of the files matching the pattern
     files = list(p.glob(f'*.csv'))
@@ -70,7 +70,7 @@ def heat_map_f():
     df.columns = columns
     heatmap = df.corr()
         
-    plt.style.use("seaborn")
+    plt.style.use("seaborn-paper")
 
     # 3. Plot the heatmap
     plt.figure(figsize=(12,12))

@@ -25,8 +25,8 @@ def interpolation(length_dataset, function, lowest_time, highest_time, nodes_str
     step = highest_time/length_dataset
     new_time = np.arange(lowest_time, highest_time, step)
     df = function(new_time)
-    path_TOF_matching_data = "C:/Users/EQ01/Desktop/Folders/Trabajo/UPB/Research group/SOH/codes/WebEquation/src/results/stability/TOF_matching_data"
+    path_TOF_matching_data = "C:/Users/EQ01/Desktop/Folders/Trabajo/UPB/Research group/SOH/codes/WebEquation/src/implicit/results/stability/TOF_matching_data"
     os.chdir(path_TOF_matching_data)  # saves it in a different folder
     np.savetxt(f'node-{nodes_str}-dt-{dt_str}.csv', df, delimiter=',')
-    path = "C:/Users/EQ01/Desktop/Folders/Trabajo/UPB/Research group/SOH/codes/WebEquation/src/results/stability/TOF_df"
+    path = "C:/Users/EQ01/Desktop/Folders/Trabajo/UPB/Research group/SOH/codes/WebEquation/src/implicit/results/stability/TOF_df"
     os.chdir(path)  # Change the path to read the datasets

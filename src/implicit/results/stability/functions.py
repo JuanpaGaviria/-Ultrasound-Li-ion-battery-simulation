@@ -25,10 +25,10 @@ def read_iter_number(dt, slice_dict):
 def slice_df(iter_number, df, nodes_str, dt_str):  # This function allows to obtain the new datasets.
         df_node_0 = df[0,:iter_number]
         #df_node_0 = df.iloc[0,:iter_number]  # Slice the dataframe
-        path_TOF = "C:/Users/EQ01/Desktop/Folders/Trabajo/UPB/Research group/SOH/codes/WebEquation/src/results/stability/TOF_df"
+        path_TOF = "C:/Users/EQ01/Desktop/Folders/Trabajo/UPB/Research group/SOH/codes/WebEquation/src/implicit/results/stability/TOF_df"
         os.chdir(path_TOF)  # saves it in a different folder
         #df_node_0.to_csv(f'node-{nodes_str}-dt-{dt_str}.csv', index=False)  # Stores it with this name
         np.savetxt(f'node-{nodes_str}-dt-{dt_str}.csv', df_node_0, delimiter=',')
-        path = "C:/Users/EQ01/Desktop/Folders/Trabajo/UPB/Research group/SOH/codes/WebEquation/src/results/stability/dataframes"
+        path = "C:/Users/EQ01/Desktop/Folders/Trabajo/UPB/Research group/SOH/codes/WebEquation/src/implicit/results/stability/dataframes"
         os.chdir(path)  # Change the path to read the datasets
 
