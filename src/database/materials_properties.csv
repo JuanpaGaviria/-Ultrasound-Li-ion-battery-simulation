@@ -1,18 +1,26 @@
 ﻿Type,Composition,state,bulk_modulus,shear_modulus,e_modulus,density,thickness
-cathode_d,LCO_1,solid,1.00E+00,1.00E+00,1.78E+11,3408,59
-cathode_5,LCO_95,solid,1.00E+00,1.00E+00,9.60E+10,3408,59
-cathode_10,LCO_9,solid,1.00E+00,1.00E+00,8.50E+10,3408,59
-cathode_50,LCO_5,solid,1.00E+00,1.00E+00,8.90E+10,3408,59
-cathode_c ,CO,solid,1.00E+00,1.00E+00,6.00E+10,3408,59
-anode_d ,C6,solid,1.00E+00,1.00E+00,3.20E+10,1954,66
-anode_5,LiC,solid,1.00E+00,1.00E+00,2.70E+10,1953,68
-anode_10,LiC,solid,1.00E+00,1.00E+00,5.80E+10,1952,69
-anode_50,LiC,solid,1.00E+00,1.00E+00,1.09E+11,1944,70
-anode_c ,LiC6,solid,1.00E+00,1.00E+00,1.09E+11,1934,71
-anode_charged,LiC6,solid,1.01E+10,4.55E+09,1.19E+10,1934,71
-cathode_charged,LCO_composite,solid,1.13E+10,4.37E+09,1.16E+10,3408,59
-anode_discharged,LiC18,solid,5.48E+09,1.58E+09,4.32E+09,1954,66
-cathode_discharged,LCO_composite,solid,1.19E+10,4.72E+09,1.25E+10,3408,59
+cathode_0,LCO,solid,null,null,1.78E+11,3408,59
+cathode_01,LCO,solid,null,null,1.69E+11,3408,59
+cathode_02,LCO,solid,null,null,1.60E+11,3408,59
+cathode_03,LCO,solid,null,null,1.52E+11,3408,59
+cathode_04,LCO,solid,null,null,1.43E+11,3408,59
+cathode_05,LCO,solid,null,null,1.34E+11,3408,59
+cathode_06,LCO,solid,null,null,1.25E+11,3408,59
+cathode_07,LCO,solid,null,null,1.16E+11,3408,59
+cathode_08,LCO,solid,null,null,1.08E+11,3408,59
+cathode_09,LCO,solid,null,null,9.88E+10,3408,59
+cathode_10,LCO,solid,null,null,9.00E+10,3408,59
+anode_0,C,solid,null,null,3.25E+10,1954,66.0
+anode_01,LiC,solid,null,null,4.01E+10,1952,66.5
+anode_02,LiC,solid,null,null,4.77E+10,1950,67.0
+anode_03,LiC,solid,null,null,5.53E+10,1948,67.5
+anode_04,LiC,solid,null,null,6.30E+10,1946,68.0
+anode_05,LiC,solid,null,null,7.06E+10,1944,68.5
+anode_06,LiC,solid,null,null,7.82E+10,1942,69.0
+anode_07,LiC,solid,null,null,8.58E+10,1940,69.5
+anode_08,LiC,solid,null,null,9.34E+10,1938,70.0
+anode_09,LiC,solid,null,null,1.01E+11,1936,70.5
+anode_10,LiC,solid,null,null,1.09E+11,1934,71.0
 negative_colector,copper,solid,1.17E+11,4.47E+10,1.19E+11,8960,26
 positiv_colector,aluminium,solid,6.90E+10,2.55E+10,6.81E+10,2700,28
 separator,polymer,solid,1.50E+09,7.30E+08,1.88E+09,1550,26

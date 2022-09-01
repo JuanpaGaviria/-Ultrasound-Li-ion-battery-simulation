@@ -19,16 +19,12 @@ def stability_f(dt_array, n_steps):
     os.chdir(path)  # Change the path to read the datasets 
     for file in os.listdir():  # for loop for all the files
         if file.endswith(".csv"):  # if they are .csv
-            #file_path = f"{path}/{file}"  # This allows to take the absolute path of each file
-            #df = pd.read_csv(file)  # reads the dataset
             df = np.loadtxt(file, delimiter=',')
             dt_str = re.split("[-dt.]", file)  # Takes the dt in the file name
             dt_str = f'{dt_str[-3]}-{dt_str[-2]}'  # Takes the dt in the file name
             dt = float(dt_str)
             nodes_str = re.split("[-]", file)  # Takes de nodes in the file name
             nodes_str = f'{nodes_str[1]}'
-            # res = isinstance(str_1, str)
-            # print("Is variable a string ? : " + str(res))
             iter_number = functions.read_iter_number(dt, slice_dict)  # Checks the iter number to slice the corresponding to the current dataset            
             functions.slice_df(iter_number, df, nodes_str, dt_str)  # Saves the new dataset
 
