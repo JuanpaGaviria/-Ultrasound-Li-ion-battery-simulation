@@ -1,7 +1,6 @@
 def battery_structure(indexes, layer_number):  # method to construct the battery map
 
     _layers_number = int(layer_number / 2)  # this is needed to add the second half of the layers
-    interphase_number = layer_number - 1  # computes the interfaces
 
     battery_map = []  # List where the map is stored
     count = 0  # used at the buckle
@@ -21,5 +20,4 @@ def battery_structure(indexes, layer_number):  # method to construct the battery
                     count = len(indexes)-1
             break
 
-    return interphase_number, battery_map  # if another variable is added at this line, the main
-# must read it.
+    return battery_map
