@@ -10,26 +10,39 @@ from src.implicit.numerical_method import numerical_method_implicit
 # Processing functions
 from src.result_processing.stability.stability import *
 from src.result_processing.layer_number.layer_number_ import layer_number_f
+from result_processing.SOC.SOC_df import *
+from result_processing.SOC.SOC_fun import *
+from src.result_processing.SOC.functions import *
 
 
 """material selection
 """
 
-indexes = [0, 11]  # materials definition discharged
-layer_number = 4  # The condition is that the numbers half must be an even number
+# indexes = [0, 11]  # materials definition discharged
+# layer_number = 4  # The condition is that the numbers half must be an even number
 
-initial_velocity, amplitude, period, input_time = 0, 2, 2, 0.1
+# url = './src/database/materials_properties.csv'
+# df = pd.read_csv(url)
 
-url = './src/database/materials_properties.csv'
-df = pd.read_csv(url)
+# dt = 70e-9
+# nodes = 200
+# n_steps = 100
+# time = n_steps*dt
+# name = f'nodes-{nodes}-dt{dt}'
 
-dt = 70e-9
-nodes = 200
-n_steps = 100
-time = n_steps*dt
-name = f'nodes-{nodes}-dt{dt}'
+# main_path = os.path.dirname(__file__)
+# reading_path = 'src/result_processing/SOC/Dataset'
+# saving_path = 'src/result_processing/SOC/SOC_output'
+# style = 'seaborn-poster'
 
-main_path = os.path.abspath("main.py")
+# SOC_comparison(reading_path, main_path, cut_imput = 14)
+# n = 11
+# df, n = df_creation(saving_path)
+# plot(df, n, style)
+
+
+# functions.df_creation(name)
+# functions.plot(df, count, style)
 # numerical_method_implicit(indexes, layer_number, nodes, n_steps, dt, initial_velocity, df, name, save=False, save_path, main_path)
 # iterative_stability_f(indexes, layer_number, n_steps, initial_velocity, amplitude, period, input_time, url, df, nodes_array, dt_array, save=False)
 # stability_f(dt_array, n_steps, reading_path, save_path, main_path)

@@ -10,8 +10,12 @@ from .matching_functions import *
 from src.implicit.numerical_method import numerical_method_implicit
 
 
-def iterative_stability_f(indexes, layer_number, n_steps, initial_velocity,
-                            amplitude, period, input_time, url, df, nodes_array, dt_array, save, save_path, main_path):
+def iterative_stability_f(indexes, layer_number, n_steps, initial_velocity, amplitude, period, input_time, url, df, nodes_array, dt_array, save, save_path, main_path):
+
+    """
+    Iteration varying the nodes and dt
+    """
+
     for i in range(len(nodes_array)):
         for j in range(len(dt_array)):
             nodes = nodes_array[i]
@@ -23,6 +27,13 @@ def iterative_stability_f(indexes, layer_number, n_steps, initial_velocity,
 
 
 def stability_f(dt_array, n_steps, reading_path, save_path, main_path):
+
+    """
+    1. Read the results
+    2. Takes the dt and the nodes from the file name
+    3. Define the maximum common time that all the results have
+    """
+
     slice_dict = functions.dict_iter_number_f(dt_array, n_steps)  # Return a dict to allow the slicing of the dataframes
 
     os.chdir(reading_path)  # Change the path to read the datasets 
@@ -38,7 +49,13 @@ def stability_f(dt_array, n_steps, reading_path, save_path, main_path):
             functions.slice_df(iter_number, df, nodes_str, dt_str, save_path, reading_path)  # Saves the new dataset
 
 
-def equal_data_files(n_steps, dt_array, reading_path, save_path):  # Function that interpolates all the datasets to match the number of data and time
+def equal_data_files(n_steps, dt_array, reading_path, save_path):
+
+    """
+    Function that interpolates all the datasets to match the number of data and time
+    """
+
+
     max_time_intersection = max_time_intersection_f(n_steps, dt_array)  # Function that measure the common maxium time in all the files 
     length_dataset = lenght_dataset_f(max_time_intersection, dt_array)  # Function that measure the amount of data in the biggest file
     os.chdir(reading_path)
