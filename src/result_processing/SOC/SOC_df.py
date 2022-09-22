@@ -1,6 +1,8 @@
-import pandas as pd
 import os
 import re
+
+import pandas as pd
+
 from .functions import *
 
 
@@ -22,6 +24,5 @@ def SOC_comparison(reading_path, main_path, cut_imput):
             name = name[0]
             dataset = pd.read_csv(file, header=None, delimiter=",")
             output_dataframe(dataset, name, cut_imput)
-    
-    os.chdir(main_path)
 
+    os.chdir(main_path)

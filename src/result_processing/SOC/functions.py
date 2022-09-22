@@ -1,7 +1,8 @@
-import matplotlib.pyplot as plt
-import pandas as pd
 import os
 import re
+
+import matplotlib.pyplot as plt
+import pandas as pd
 
 
 def output_dataframe(dataset, name, cut_imput):
@@ -12,10 +13,11 @@ def output_dataframe(dataset, name, cut_imput):
     """
 
     df_node_0 = dataset.iloc[0, cut_imput:]
-    os.chdir('../SOC_output/')
-    df_node_0.to_pickle(f'{name}.pkl')
-    print('saved', f'{name}')
-    os.chdir('../Dataset')
+    os.chdir("../SOC_output/")
+    df_node_0.to_pickle(f"{name}.pkl")
+    print("saved", f"{name}")
+    os.chdir("../Dataset")
+
 
 def df_creation(reading_path):
 
@@ -23,7 +25,7 @@ def df_creation(reading_path):
     Creates the new dataframe
     """
 
-    os.chdir(reading_path) 
+    os.chdir(reading_path)
 
     columns = []
     files = []
@@ -35,13 +37,14 @@ def df_creation(reading_path):
             columns.append(name)
             files.append(file)
             count += 1
-    
-    df = pd.concat([pd.read_pickle(f) for f in files], axis = 1)
+
+    df = pd.concat([pd.read_pickle(f) for f in files], axis=1)
     df.columns = columns
-    sort_columns = ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100']
-    df = df.reindex(columns = sort_columns)
+    sort_columns = ["0", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"]
+    df = df.reindex(columns=sort_columns)
 
     return df, count
+
 
 def plot(df, n, style):
 
@@ -50,6 +53,6 @@ def plot(df, n, style):
     """
 
     plt.style.use(style)
-    fig, a = plt.subplots(n, 1, figsize=(20, 20), tight_layout=True, sharex = True)
+    fig, a = plt.subplots(n, 1, figsize=(20, 20), tight_layout=True, sharex=True)
     df.plot(ax=a, subplots=True, rot=60)
-    plt.savefig('SOC.png')
+    plt.savefig("SOC.png")

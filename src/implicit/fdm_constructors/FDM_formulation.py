@@ -2,7 +2,6 @@ from abc import ABCMeta, abstractmethod
 
 
 class ImplicitFormulation(metaclass=ABCMeta):
-
     @abstractmethod
     def node_0_dirichlet(self, left):
         pass
@@ -81,7 +80,6 @@ class ImplicitFormulation(metaclass=ABCMeta):
 
 
 class InputWave(ImplicitFormulation):
-
     def __init__(self):
         self.alpha = None
         self.a_i_i = None  # U^j_i
@@ -103,19 +101,23 @@ class InputWave(ImplicitFormulation):
         self.a_i_i1 = -1
         self.b = 0
 
-    def time_0_node_1_dirichlet(self, gamma, u_left, initial_velocity, dt, uj_0):  # Node 1
+    def time_0_node_1_dirichlet(
+        self, gamma, u_left, initial_velocity, dt, uj_0
+    ):  # Node 1
 
         self.a_i_i = gamma + 2
-        self.a_i_i1 = - 1
-        self.b = (gamma*uj_0) - (initial_velocity*dt) + u_left
+        self.a_i_i1 = -1
+        self.b = (gamma * uj_0) - (initial_velocity * dt) + u_left
 
-    def time_0_node_2_dirichlet(self, phi, u_left, initial_velocity, dt, uj_0):  # Node 2
+    def time_0_node_2_dirichlet(
+        self, phi, u_left, initial_velocity, dt, uj_0
+    ):  # Node 2
 
         self.a_i_i_1 = 16
         self.a_i_i = -(30 + phi)
         self.a_i_i1 = 16
         self.a_i_i2 = -1
-        self.b = (-initial_velocity*dt) - (phi*uj_0) + u_left
+        self.b = (-initial_velocity * dt) - (phi * uj_0) + u_left
 
     def time_0_internal_node(self, phi, initial_velocity, dt, uj_0):  # Internal nodes
 
@@ -124,37 +126,43 @@ class InputWave(ImplicitFormulation):
         self.a_i_i = -(30 + phi)
         self.a_i_i1 = 16
         self.a_i_i2 = -1
-        self.b = (-initial_velocity*dt) - (phi*uj_0)
+        self.b = (-initial_velocity * dt) - (phi * uj_0)
 
-    def time_0_node__1_interphase(self, gamma, initial_velocity, dt, uj_0):  # Node before an interface
+    def time_0_node__1_interphase(
+        self, gamma, initial_velocity, dt, uj_0
+    ):  # Node before an interface
 
         self.a_i_i_1 = -1
         self.a_i_i = gamma + 2
         self.a_i_i1 = -1
-        self.b = (gamma*uj_0) - (initial_velocity * dt)
+        self.b = (gamma * uj_0) - (initial_velocity * dt)
 
     def time_0_interphase(self, alpha):  # Interface
 
         self.a_i_i_2 = 1
-        self.a_i_i_1 = - 4
+        self.a_i_i_1 = -4
         self.a_i_i = 3 * (1 + alpha)
-        self.a_i_i1 = - 4 * alpha
+        self.a_i_i1 = -4 * alpha
         self.a_i_i2 = alpha
         self.b = 0
 
-    def time_0_node_1_interphase(self, gamma, initial_velocity, dt, uj_0):  # Node after interface
+    def time_0_node_1_interphase(
+        self, gamma, initial_velocity, dt, uj_0
+    ):  # Node after interface
 
         self.a_i_i_1 = -1
         self.a_i_i = gamma + 2
         self.a_i_i1 = -1
-        self.b = (gamma*uj_0) - (initial_velocity * dt)
+        self.b = (gamma * uj_0) - (initial_velocity * dt)
 
-    def time_0_penultimate_node(self, gamma, initial_velocity, dt, uj_0):  # Penultimate Node
+    def time_0_penultimate_node(
+        self, gamma, initial_velocity, dt, uj_0
+    ):  # Penultimate Node
 
         self.a_i_i_1 = -1
         self.a_i_i = gamma + 2
         self.a_i_i1 = -1
-        self.b = (gamma*uj_0) - (initial_velocity*dt)
+        self.b = (gamma * uj_0) - (initial_velocity * dt)
 
     def time_0_last_node(self):  # Last node
 
@@ -164,66 +172,65 @@ class InputWave(ImplicitFormulation):
 
     def node_1_dirichlet(self, gamma, uj_0, uj_1, u_left):  # first node
 
-        self.a_i_i = (gamma + 2)
+        self.a_i_i = gamma + 2
         self.a_i_i1 = -1
-        self.b = (2*gamma*uj_0) - (gamma*uj_1) + u_left
+        self.b = (2 * gamma * uj_0) - (gamma * uj_1) + u_left
 
     def node_1_neumann(self, gamma, uj_0, uj_1):
-        
+
         self.a_i_i_1 = -1
-        self.a_i_i = (gamma + 2)
+        self.a_i_i = gamma + 2
         self.a_i_i1 = -1
-        self.b = (2*gamma*uj_0) - (gamma*uj_1)
+        self.b = (2 * gamma * uj_0) - (gamma * uj_1)
 
     def node_2_dirichlet(self, phi, uj_0, uj_1, u_left):  # second node
 
         self.a_i_i_1 = 16
-        self.a_i_i = -(30+phi)
+        self.a_i_i = -(30 + phi)
         self.a_i_i1 = 16
         self.a_i_i2 = -1
-        self.b = (phi*uj_1) - (2*phi*uj_0) + u_left
+        self.b = (phi * uj_1) - (2 * phi * uj_0) + u_left
 
     def internal_node(self, phi, uj_0, uj_1):  # Internal node
         self.a_i_i_2 = -1
         self.a_i_i_1 = 16
-        self.a_i_i = -(30+phi)
+        self.a_i_i = -(30 + phi)
         self.a_i_i1 = 16
         self.a_i_i2 = -1
-        self.b = (phi*uj_1) - (2*phi*uj_0)
+        self.b = (phi * uj_1) - (2 * phi * uj_0)
 
-    def node__1_interphase(self,  gamma, uj_0, uj_1):  # Node before interface
+    def node__1_interphase(self, gamma, uj_0, uj_1):  # Node before interface
 
         self.a_i_i_1 = -1
-        self.a_i_i = (gamma+2)
-        self.a_i_i1 = - 1
-        self.b = (2*gamma*uj_0) - (gamma*uj_1)
+        self.a_i_i = gamma + 2
+        self.a_i_i1 = -1
+        self.b = (2 * gamma * uj_0) - (gamma * uj_1)
 
     def interphase(self, alpha):  # Interface
 
         self.a_i_i_2 = 1
-        self.a_i_i_1 = - 4
+        self.a_i_i_1 = -4
         self.a_i_i = 3 * (1 + alpha)
-        self.a_i_i1 = - 4 * alpha
+        self.a_i_i1 = -4 * alpha
         self.a_i_i2 = alpha
         self.b = 0
 
     def node_1_interphase(self, gamma, uj_0, uj_1):  # Node after interface
 
         self.a_i_i_1 = -1
-        self.a_i_i = (gamma+2)
-        self.a_i_i1 = - 1
-        self.b = (2*gamma*uj_0) - (gamma*uj_1)
+        self.a_i_i = gamma + 2
+        self.a_i_i1 = -1
+        self.b = (2 * gamma * uj_0) - (gamma * uj_1)
 
     def penultimate_node(self, gamma, uj_0, uj_1):  # Penultimate node
 
         self.a_i_i_1 = -1
-        self.a_i_i = (gamma+2)
-        self.a_i_i1 = - 1
-        self.b = (2*gamma*uj_0) - (gamma*uj_1)
+        self.a_i_i = gamma + 2
+        self.a_i_i1 = -1
+        self.b = (2 * gamma * uj_0) - (gamma * uj_1)
 
     def last_node(self):  # last node
 
         self.a_i_i_1 = 1
         self.a_i_i = -1
         self.b = 0
-

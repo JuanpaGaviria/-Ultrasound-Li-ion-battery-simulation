@@ -1,19 +1,20 @@
 # Requirements
-from operator import index
-import pandas as pd
 import os
+from operator import index
+
+import pandas as pd
+
+from result_processing.SOC.SOC_df import *
+from result_processing.SOC.SOC_fun import *
 
 # Internal Numerical Methods
 from src.explicit.numerical_method import numerical_method_explicit
 from src.implicit.numerical_method import numerical_method_implicit
+from src.result_processing.layer_number.layer_number_ import layer_number_f
+from src.result_processing.SOC.functions import *
 
 # Processing functions
 from src.result_processing.stability.stability import *
-from src.result_processing.layer_number.layer_number_ import layer_number_f
-from result_processing.SOC.SOC_df import *
-from result_processing.SOC.SOC_fun import *
-from src.result_processing.SOC.functions import *
-
 
 """material selection
 """
@@ -48,5 +49,5 @@ from src.result_processing.SOC.functions import *
 # stability_f(dt_array, n_steps, reading_path, save_path, main_path)
 # equal_data_files(n_steps, dt_array, reading_path, save_path)  # Reading is where the stability_f stores the results
 # heat_map_f(reading_path, saving_path)
-#layer_number_f(layers, indexes, nodes, n_steps, dt, time, initial_velocity, amplitude, period, input_time, url, df, name, save=False)
-#numerical_method_explicit(indexes, df, nodes, time, n_steps, name, layer_number, save=False)
+# layer_number_f(layers, indexes, nodes, n_steps, dt, time, initial_velocity, amplitude, period, input_time, url, df, name, save=False)
+# numerical_method_explicit(indexes, df, nodes, time, n_steps, name, layer_number, save=False)
