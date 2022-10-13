@@ -6,7 +6,7 @@ def tof(dt, n_steps, file, save):
     """
     Take the time a wave is passing through the boundary with the amplitude
     """
-    
+
     H = file
     time = dt * n_steps
     deformation = []

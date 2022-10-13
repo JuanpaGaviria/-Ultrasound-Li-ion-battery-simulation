@@ -23,7 +23,7 @@ def df_creation(reading_path):
     Creates the new dataframe
     """
 
-    os.chdir(reading_path) 
+    os.chdir(reading_path)
 
     columns = []
     files = []
@@ -35,7 +35,7 @@ def df_creation(reading_path):
             columns.append(name)
             files.append(file)
             count += 1
-    
+
     df = pd.concat([pd.read_pickle(f) for f in files], axis = 1)
     df.columns = columns
     sort_columns = ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100']

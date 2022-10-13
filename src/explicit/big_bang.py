@@ -5,8 +5,7 @@ Created on Wed Jul 14 15:32:05 2021
 @author: EQ01
 """
 import numpy as np
-import pandas as pd
-from .boundary import Material
+from src.explicit.boundary import Material
 
 # Class instantiation for each material and methods implementation
 def big_bang_f(indexes, df, nodes, time, nsteps, battery_map):
@@ -21,7 +20,7 @@ def big_bang_f(indexes, df, nodes, time, nsteps, battery_map):
     materials_number=int(len(indexes))
     dimensionless_thickness=None
     dimensionless_length=None
-    
+
     for i in range(materials_number):
         g=indexes[i]
         a=df._get_value(g,'Type')
@@ -42,12 +41,12 @@ def big_bang_f(indexes, df, nodes, time, nsteps, battery_map):
         thickness_summary.append(material.thickness_summary[-1])
 
         #Definning the length where the wave propagates
-        if j==materials_number-1: 
-        # dimensional length    
-            summ=0    
+        if j==materials_number-1:
+        # dimensional length
+            summ=0
             for i in range(len(thickness_summary)):#Sum the thickness of each material
                 summ=summ + thickness_summary[i]
-            
+
             dimensionless_length=0
             # dimensionless length
             for i in range(len(thickness_summary)):
@@ -55,7 +54,7 @@ def big_bang_f(indexes, df, nodes, time, nsteps, battery_map):
                 dimensionless_thickness=value/summ
                 dimensionless_lengths.append(dimensionless_thickness)
                 dimensionless_length=dimensionless_length+dimensionless_thickness
-                    
+
             #The dimensionless position of each material
             positions=0
             #print(thickness_summary)
@@ -63,21 +62,17 @@ def big_bang_f(indexes, df, nodes, time, nsteps, battery_map):
                 positions=positions+dimensionless_lengths[i]
                 dimensionless_position.append(positions)
 
-        
+
     _e_modulus_dict = dict(zip(indexes, materials_e_modulus))
     for _e_modulus in range(len(battery_map)):
         _id = battery_map[_e_modulus]
         e_modulus = _e_modulus_dict[_id]
-            
-                
+
     dx=dimensionless_length/(nodes-1)
     # dt=time/nsteps
     dt=6.25e-7
     x=np.linspace(0,dimensionless_length,nodes)
-    
+
     return dx, dt, x, dimensionless_length, dimensionless_position , material, \
         dimensionless_thickness, materials_summary, thickness_summary,\
             dimensionless_lengths, materials, _e_modulus_dict
-        
-        
-        
