@@ -1,5 +1,5 @@
 import numpy as np
-from .statusbar.statusbar import status_bar
+from src.explicit.statusbar.statusbar import status_bar
 
 def fm(nodes, nsteps, dx, dt, materials_summary, courant_material, indexes,\
        dimensionless_position, x, _e_modulus_dict, battery_map):
@@ -18,12 +18,12 @@ def fm(nodes, nsteps, dx, dt, materials_summary, courant_material, indexes,\
     v0=0
 
     for j in range(nsteps):
-    
+
         if j==0: #first step in a first moment
             count=0#this refers to the position in terms of dimensionless length
             n=0#This refers to the node
             interphase_count = 0
-            #Left boundary condition. 
+            #Left boundary condition.
             if count==0:
                 courant=courant_material[count]
                 uj0i=uj0[n]
@@ -33,18 +33,17 @@ def fm(nodes, nsteps, dx, dt, materials_summary, courant_material, indexes,\
                 # materials_summary[count].leftbc_open(courant, uj0i, uj01, uj02)
                 uj1[count]=materials_summary[count].uj1
                 H[:,j+1]=uj1  #save history
-                
+
                 n=n+1
                 count=count+dx
-                    
-                
+
                 # print(count,round(dx,3))
             if count > 0 and n<nodes:
                 for b in range(materials_number):
                     #method for central uj1
-                    
+
                     while count < dimensionless_position[b] and n < nodes-1:
-                        
+
                         #variables
                         square_velocity=materials_summary[b].square_velocity
                         # print(materials_summary[b].square_velocity)
@@ -55,7 +54,7 @@ def fm(nodes, nsteps, dx, dt, materials_summary, courant_material, indexes,\
                                                      uj01, uj0i_1,v0)
                         uj1[n]=materials_summary[b].uj1
                         H[:,j+1]=uj1  #save history
-    
+
                         n=n+1
                         count=count+dx
                         #Interface

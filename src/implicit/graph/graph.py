@@ -9,7 +9,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import os
-import re
 
 
 def graph(nodes, file, n_steps, dimensionless_length):

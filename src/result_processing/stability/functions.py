@@ -4,10 +4,10 @@ import numpy as np
 
 
 def dict_iter_number_f(dt_array, n_steps):
-    
+
     """
     Define a dict to know how many iterations must be used for each particular result being processed
-    array : iter number 
+    array : iter number
     This guarantee to have everything at the same time.
     """
 

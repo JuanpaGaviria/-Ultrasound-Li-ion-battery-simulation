@@ -4,9 +4,8 @@ import seaborn as sns
 import matplotlib.pylab as plt
 from scipy import interpolate
 import os
-from . import functions
+from src.result_processing.stability import functions
 import re
-from .matching_functions import *
 from src.implicit.numerical_method import numerical_method_implicit
 
 
@@ -73,8 +72,8 @@ def equal_data_files(n_steps, dt_array, reading_path, save_path):
             interpolation(length_dataset, function, lowest_time, highest_time, nodes_str, dt_str, save_path, reading_path)  # interpolates adding the number of data as the biggest file
 
 def heat_map_f(reading_path, saving_path):
-    
-    # set the path to the files      
+
+    # set the path to the files
 
     # create a list of the files matching the pattern
     files = list(reading_path.glob(f'*.csv'))
@@ -93,7 +92,7 @@ def heat_map_f(reading_path, saving_path):
             columns.append(column)
     df.columns = columns
     heatmap = df.corr()
-        
+
     plt.style.use("seaborn-paper")
 
     # 3. Plot the heatmap

@@ -74,8 +74,3 @@ class Material():
                            uj0i_2, uj0i, uj_1i):
         self.uj1=square_velocity*dt**2*(-uj02+16*uj01-30*uj0i+16*uj0i_1-uj0i_2)\
                             /(12*dx**2)+(2*uj0i)-uj_1i
-                    
-        
-                    
-
-            

@@ -34,3 +34,7 @@ coverage.xml
 
 # files
 *.csv
+
+venv/
+
+.env
