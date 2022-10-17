@@ -36,3 +36,7 @@ coverage.xml
 *.csv
 *.txt
 *.png
+
+venv/
+
+.env

@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from .material_constructor import Material
+from src.implicit.material_constructor import Material
 
 
 def big_bang(indexes, df, nodes, battery_map, dt):

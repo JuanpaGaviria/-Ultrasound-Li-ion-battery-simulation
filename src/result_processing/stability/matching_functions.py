@@ -17,7 +17,7 @@ def lenght_dataset_f(max_time_intersection, dt_array):
     """
     Function that measure the size of the new dataset, returning n_steps
     """
-    
+
     dt_array.sort()
     dt = dt_array[0]
     length_dataset = max_time_intersection/dt

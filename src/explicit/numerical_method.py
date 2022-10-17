@@ -2,10 +2,10 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import winsound
-from . import big_bang
-from .courant_constructor import courant
-from .fem import fm
-from .battery_construction import battery_structure
+from src.explicit import big_bang
+from src.explicit.courant_constructor import courant
+from src.explicit.fem import fm
+from src.explicit.battery_construction import battery_structure
 
 
 
