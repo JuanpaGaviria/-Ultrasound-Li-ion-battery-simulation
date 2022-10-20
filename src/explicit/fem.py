@@ -49,7 +49,7 @@ def fm(nodes, nsteps, dx, dt, materials_summary, courant_material, indexes,\
                         # print(materials_summary[b].square_velocity)
                         uj0i=uj0[n]
                         uj01=uj0[n+1]
-                        uj0i_1=uj0[n-1]                        
+                        uj0i_1=uj0[n-1]
                         materials_summary[b].central(dt, square_velocity, dx, uj0i,\
                                                      uj01, uj0i_1,v0)
                         uj1[n]=materials_summary[b].uj1
@@ -71,16 +71,16 @@ def fm(nodes, nsteps, dx, dt, materials_summary, courant_material, indexes,\
                             uj0i_1=uj0[n-1]
                             uj02=uj0[n+2]
                             uj0i_2=uj0[n-2]
-                            
+
                             materials_summary[b].trans_interface(young_modulus_1,young_modulus1, uj01, uj0i_1, uj02,\
                                                     uj0i_2)
                             uj1[n]=materials_summary[b].uj1
                             H[:,j+1]=uj1  #save history
-    
+
                             count=count+dx
                             n=n+1
                             interphase_count += 1
-                                                    
+
                         #right boundary condition
                     if b == materials_number-1:
                         #variables
@@ -92,8 +92,7 @@ def fm(nodes, nsteps, dx, dt, materials_summary, courant_material, indexes,\
                         materials_summary[b].non_transmission()
                         uj1[n]=materials_summary[b].uj1
                         H[:,j+1]=uj1  #save history
-    
-                                
+
         if j>0:
             count=0#this refers to the position in terms of dimensionless length
             n=0#This refers to the node
@@ -116,12 +115,12 @@ def fm(nodes, nsteps, dx, dt, materials_summary, courant_material, indexes,\
                     materials_summary[count].leftbc_soft(uj01, uj02)
                 uj1[count]=materials_summary[count].uj1
                 H[:,j+1]=uj1  #save history
-    
+
                 count=count+dx
                 n=n+1
-            
+
             if count>0 and n < nodes-1:
-                
+
                 for b in range(materials_number):
                     #method for central uj1
                     while count < dimensionless_position[b] and n < nodes-1:
@@ -133,17 +132,17 @@ def fm(nodes, nsteps, dx, dt, materials_summary, courant_material, indexes,\
                             uj0i_1=uj0[n-1]
                             uj0i_2=uj0[n-2]
                             uj_1i=uj_1[n]
-                            
+
                             materials_summary[b].central_future(dt,dx ,\
-                                            square_velocity, uj01, uj0i, uj0i_1, uj_1i)                        
-                            
+                                            square_velocity, uj01, uj0i, uj0i_1, uj_1i)
+
                             uj1[n]=materials_summary[b].uj1
                             H[:,j+1]=uj1  #save history
-                            
+
                             # count=count+dx
                             # n=n+1
                             # print(j)
-                            
+
                         if n>1 and n<nodes-2:
                             square_velocity=materials_summary[b].square_velocity
                             uj01=uj0[n+1]
@@ -153,17 +152,17 @@ def fm(nodes, nsteps, dx, dt, materials_summary, courant_material, indexes,\
                             uj_1i=uj_1[n]
                             uj02=uj0[n+2]
                             # materials_summary[b].central_future(dt,dx ,\
-                                            # square_velocity, uj01, uj0i, uj0i_1, uj_1i)                            
+                                            # square_velocity, uj01, uj0i, uj0i_1, uj_1i)
                             materials_summary[b].five_point_stencil(square_velocity,\
                                                 dx, dt, uj02, uj01, uj0i_1, uj0i_2, uj0i, uj_1i)
-                            
+
                             uj1[n]=materials_summary[b].uj1
                             H[:,j+1]=uj1  #save history
-                            
+
                         count=count+dx
                         n=n+1
                         # print(j,n, count)
-                            
+
                         if count > dimensionless_position[b] and \
                             count < dimensionless_position[b]+dx and n < nodes-2:
                             #variables
@@ -178,27 +177,26 @@ def fm(nodes, nsteps, dx, dt, materials_summary, courant_material, indexes,\
                             materials_summary[b].trans_interface(young_modulus_1,young_modulus1, uj01, uj0i_1, uj02, uj0i_2)
                             uj1[n]=materials_summary[b].uj1
                             H[:,j+1]=uj1  #save history
-    
+
                             count=count+dx
                             n=n+1
-                        
+
                     if b == materials_number-1:
                         #variables
                         uj0i=uj0[n]
                         courant=courant_material[b]
                         uj0i_1=uj0[n-1]
-                        uj0i_2=uj0[n-2]                
+                        uj0i_2=uj0[n-2]
                         # materials_summary[b].rightbc_open(uj0i, courant, uj0i_1, uj0i_2)
                         # materials_summary[b].soft_reflection(uj0i_1, uj0i_2)
                         materials_summary[b].non_transmission()
                         uj1[n]=materials_summary[b].uj1
                         H[:,j+1]=uj1  #save history
 
-        uj_2[:]=uj_1                  
+        uj_2[:]=uj_1
         uj_1[:]=uj0  #time update
         uj0[:]=uj1
 
         sb.update(j+1)
-        
+
     return H
-    

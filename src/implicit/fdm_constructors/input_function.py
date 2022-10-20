@@ -7,23 +7,9 @@ import numpy as np
 def input_f(_time, dt):
     f = open('signal.json')
     data = json.load(f)
-    amplitude = []
-    time = []
+    amplitude = data['amplitude']
+    time = data['time']
 
-    for i, j in zip(data['amplitude'], data['time']):
-        amplitude.append(i)
-        time.append(j)
-    f.close()
-
-    f = open('signal.json')
-    data = json.load(f)
-    amplitude = []
-    time = []
-    for i, j in zip(data['amplitude'], data['time']):
-        amplitude.append(i)
-        time.append(j)
-        # print(time)
-    f.close()
     function = interpolate.interp1d(time, amplitude)
     lowest = np.amin(time)
     highest = np.amax(time)
