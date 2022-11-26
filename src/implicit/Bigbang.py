@@ -88,4 +88,4 @@ def big_bang(indexes, df, nodes, battery_map, dt):
         gamma_map.append(gamma)
         phi_map.append(phi)
 
-    return x, interphase_position, _e_modulus_dict, gamma_map, phi_map
+    return x, interphase_position, _e_modulus_dict, gamma_map, phi_map, materials_summary

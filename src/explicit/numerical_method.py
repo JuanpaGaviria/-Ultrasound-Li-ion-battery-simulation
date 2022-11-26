@@ -9,17 +9,17 @@ from src.explicit.battery_construction import battery_structure
 
 
 
-def numerical_method_explicit(indexes, df, nodes, time, nsteps, name, layer_number, save):
+def numerical_method_explicit(indexes, layer_number, nodes, n_steps, dt, initial_velocity, df, name, save_path, main_path, save=False):
 
-    interphase_number, battery_map = battery_structure(indexes, layer_number)
+    battery_map = battery_structure(indexes, layer_number)
 
-    dx, dt, x, dimensionless_length, dimensionless_position , material, \
+    dx, x, dimensionless_length, dimensionless_position , material, \
             dimensionless_thickness, materials_summary, thickness_summary,\
-            dimensionless_lengths, materials, _e_modulus_dict=big_bang.big_bang_f(indexes, df, nodes, time, nsteps, battery_map)
+            dimensionless_lengths, materials, _e_modulus_dict, materials_summary=big_bang.big_bang_f(indexes, df, nodes, battery_map, n_steps)
 
-    courants = courant(dx, dt, materials_summary, indexes, materials)
+    courants = courant(dx, dt, materials_summary)
 
-    H = fm(nodes, nsteps, dx, dt, materials_summary, courants,\
+    H = fm(nodes, n_steps, dx, dt, materials_summary, courants,\
         indexes, dimensionless_position,x, _e_modulus_dict, battery_map)
 
     if save:

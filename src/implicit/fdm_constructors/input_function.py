@@ -15,5 +15,6 @@ def input_f(_time, dt):
     highest = np.amax(time)
     new_time = np.arange(lowest, highest, dt)
     new_amplitude = function(new_time)  # use interpolation function returned by `interp1d`
-    plt.plot(time, amplitude, 'o', new_time, new_amplitude, '-')
+    # plt.plot(time, amplitude, 'r', new_time, new_amplitude, '-o')
+    # plt.show()
     return new_amplitude

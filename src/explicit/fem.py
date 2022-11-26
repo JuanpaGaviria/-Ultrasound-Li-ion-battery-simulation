@@ -2,7 +2,7 @@ import numpy as np
 from src.explicit.statusbar.statusbar import status_bar
 
 def fm(nodes, nsteps, dx, dt, materials_summary, courant_material, indexes,\
-       dimensionless_position, x, _e_modulus_dict, battery_map):
+    dimensionless_position, x, _e_modulus_dict, battery_map):
 
     sb = status_bar(nsteps)
     materials_number = len(indexes)
@@ -51,7 +51,7 @@ def fm(nodes, nsteps, dx, dt, materials_summary, courant_material, indexes,\
                         uj01=uj0[n+1]
                         uj0i_1=uj0[n-1]
                         materials_summary[b].central(dt, square_velocity, dx, uj0i,\
-                                                     uj01, uj0i_1,v0)
+                                                    uj01, uj0i_1,v0)
                         uj1[n]=materials_summary[b].uj1
                         H[:,j+1]=uj1  #save history
 

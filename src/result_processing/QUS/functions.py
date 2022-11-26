@@ -33,7 +33,7 @@ def tof(dt, n_steps, file, name):
             times.append(iter_time)
 
     signal = [times, deformation]
-    np.savetxt('../../TOF/results/'f'{name}.txt', signal)  # Must be created
+    np.savetxt(f'{name}_0.txt', signal)  # Must be created
 
 def slice_tof(file, first_limit, second_limit, dt, name):  # times are expressed in terms of the iterations
     
@@ -59,8 +59,9 @@ def conv(window, signal):
 
 def fft(signal):
     fft_signal = np.abs(scipy.fft.rfft(signal))
-    freq = rfftfreq(signal.shape[-1])
-    return [freq, fft_signal]
+    d = 1/(7e-08)
+    freq = rfftfreq(signal.size, d)
+    return freq, fft_signal
 
 def normalized_spectrums(ref_signal, signal):
     NE = 10*np.log10(signal[1]/ref_signal[1])

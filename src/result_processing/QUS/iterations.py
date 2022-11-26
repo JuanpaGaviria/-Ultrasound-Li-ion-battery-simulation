@@ -58,8 +58,8 @@ def fft_iterative_fun(reading_path):
             name = re.split("[.]", file)
             name = name[0]+' fft'
             signal = np.loadtxt(file, delimiter=",")
-            fft_signal = functions.fft(signal)
-            np.savetxt('./FFT/'f'{name}.txt', fft_signal, delimiter=',')  # Must be created
+            freq, fft_signal = functions.fft(signal)
+            np.savetxt('./FFT/'f'{name}.txt', (freq, fft_signal), delimiter=',')  # Must be created
 
 def normalized_spectrums_iterative(reading_path):
     os.chdir(reading_path)

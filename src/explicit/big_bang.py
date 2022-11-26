@@ -8,7 +8,7 @@ import numpy as np
 from src.explicit.boundary import Material
 
 # Class instantiation for each material and methods implementation
-def big_bang_f(indexes, df, nodes, time, nsteps, battery_map):
+def big_bang_f(indexes, df, nodes, battery_map):
 
     materials=[] #Materials list for the test
     materials_summary=[]#Objects
@@ -69,10 +69,9 @@ def big_bang_f(indexes, df, nodes, time, nsteps, battery_map):
         e_modulus = _e_modulus_dict[_id]
 
     dx=dimensionless_length/(nodes-1)
-    # dt=time/nsteps
-    dt=6.25e-7
+    
     x=np.linspace(0,dimensionless_length,nodes)
 
-    return dx, dt, x, dimensionless_length, dimensionless_position , material, \
+    return dx, x, dimensionless_length, dimensionless_position , material, \
         dimensionless_thickness, materials_summary, thickness_summary,\
             dimensionless_lengths, materials, _e_modulus_dict
