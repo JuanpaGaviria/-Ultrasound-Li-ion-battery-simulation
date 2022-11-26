@@ -7,28 +7,24 @@ import os
 from src.explicit.numerical_method import numerical_method_explicit
 from src.implicit.numerical_method import numerical_method_implicit
 
-# Processing functions
-from src.result_processing.stability.stability import *
-from src.result_processing.layer_number.layer_number_ import layer_number_f
-from result_processing.SOC.SOC_df import *
-from result_processing.SOC.SOC_fun import *
-from src.result_processing.SOC.functions import *
 
 
 """material selection
 """
 
-# indexes = [0, 11]  # materials definition discharged
-# layer_number = 4  # The condition is that the numbers half must be an even number
+indexes = [0, 11]  # materials definition discharged
+layer_number = 4  # The condition is that the numbers half must be an even number
 
-# url = './src/database/materials_properties.csv'
-# df = pd.read_csv(url)
+url = './src/database/materials_properties.csv'
+df = pd.read_csv(url)
 
-# dt = 70e-9
-# nodes = 200
-# n_steps = 100
-# time = n_steps*dt
-# name = f'nodes-{nodes}-dt{dt}'
+dt = 70e-9
+nodes = 150
+n_steps = 600
+time = n_steps*dt
+name = f'nodes-{nodes}-dt{dt}'
+
+numerical_method_explicit(indexes, df, nodes, time, n_steps, name, layer_number, save=False)
 
 # main_path = os.path.dirname(__file__)
 # reading_path = 'src/result_processing/SOC/Dataset'

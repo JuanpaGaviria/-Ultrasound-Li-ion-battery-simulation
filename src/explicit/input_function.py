@@ -1,10 +1,11 @@
+from typing import List
 import matplotlib.pyplot as plt
 import json
 from scipy import interpolate
 import numpy as np
 
 
-def input_f(_time, dt: float): #No entiendo por que usar _time, pero lo dejo
+def input_f(dt: float) -> list: #No entiendo por que usar _time, pero lo dejo
     f = open('signal.json')
     data = json.load(f)
     amplitude = data['amplitude']
@@ -20,4 +21,5 @@ def input_f(_time, dt: float): #No entiendo por que usar _time, pero lo dejo
 
     plt.plot(time, amplitude, 'o', new_time, new_amplitude, '-')
     plt.show()
+
     return new_amplitude

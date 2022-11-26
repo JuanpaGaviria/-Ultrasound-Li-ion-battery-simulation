@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import winsound
 from src.explicit import big_bang
 from src.explicit.courant_constructor import courant
 from src.explicit.fem import fm

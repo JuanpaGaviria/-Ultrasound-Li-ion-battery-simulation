@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 from src.implicit.material_constructor import Material
 
 

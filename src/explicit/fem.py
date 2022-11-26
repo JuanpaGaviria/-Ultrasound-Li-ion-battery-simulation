@@ -1,5 +1,6 @@
 import numpy as np
 from src.explicit.statusbar.statusbar import status_bar
+from src.explicit.input_function import input_f
 
 def fm(nodes, nsteps, dx, dt, materials_summary, courant_material, indexes,\
        dimensionless_position, x, _e_modulus_dict, battery_map):
@@ -12,6 +13,8 @@ def fm(nodes, nsteps, dx, dt, materials_summary, courant_material, indexes,\
     uj0=np.zeros(nodes)
     uj_1=np.zeros(nodes)
     uj_2=np.zeros(nodes)
+
+    input_vector: list = input_f(dt)
 
     H=np.zeros((nodes,nsteps+1))
 
@@ -31,7 +34,7 @@ def fm(nodes, nsteps, dx, dt, materials_summary, courant_material, indexes,\
                 uj02=uj0[n+2]
                 materials_summary[count].in_put(j)
                 # materials_summary[count].leftbc_open(courant, uj0i, uj01, uj02)
-                uj1[count]=materials_summary[count].uj1
+                uj1[count]=input_vector[j]
                 H[:,j+1]=uj1  #save history
 
                 n=n+1
@@ -106,7 +109,7 @@ def fm(nodes, nsteps, dx, dt, materials_summary, courant_material, indexes,\
                 # materials_summary[count].non_transmission()
                 if j<17:
                     materials_summary[count].in_put(j)
-                elif j==17 or (j>17 and j<60): 
+                elif j==17 or (j>17 and j<60):
                         #Open boundary:
                         materials_summary[count].leftbc_open(courant, uj0i, uj01, uj02)
                         #Non transmission boundary
