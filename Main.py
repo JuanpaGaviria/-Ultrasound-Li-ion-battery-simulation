@@ -26,24 +26,24 @@ main_path = os.path.dirname(__file__)
 saving_path = 'src/result_processing/Simulation'
 url = './src/database/materials_properties.csv'
 initial_velocity = 1
-df = pd.read_csv(url)
-# indexes = [0,1,2,3,4,15]  # materials definition discharged
-# geometry_unit = [1,15,2,15,1,4,3,4]  # Geometry
-indexes = [15,4]  # materials definition discharged
-geometry_unit = [15,15,4]  # Geometry
+df = pd.read_csv(url, dtype=object)
+indexes = [4,15]  # materials definition discharged
+geometry_unit = [4,15]  # Geometry
 
-dt = 5e-07
-nodes = 500
-dx = 1/nodes
-n_steps = 500
+dt = 0.004
+nodes = False
+cfl = 0.99
+n_steps = 150
 time = n_steps*dt
-layer_number = 4  # The condition is that the half of the number must be an even number
-interpolation_points = 5
-name = 'neumann_'f'{0}''_nodes_'f'{nodes}''_dt_'f'{dt}''_int_'f'{interpolation_points}''.csv'
-# method_switcher.get("implicit")(indexes, geometry_unit, layer_number, nodes, n_steps, dt, dx, initial_velocity, df, name, saving_path, main_path, interpolation_points, save=True)
-
-fig_steps, low_limit, upper_limit, pause= 1, -0.01, 0.01, 0.001
-graph(nodes, name, n_steps, 1, saving_path, fig_steps, low_limit, upper_limit, pause)
+layer_number = 12 # The condition is that the half of the number must be an even number
+interpolation_points = 3
+name = 'steps_'f'{n_steps}''_nodes_'f'{nodes}''_dt_'f'{dt}''_int_'f'{interpolation_points}''.csv'
+nodes = method_switcher.get("implicit")(indexes, geometry_unit  ,layer_number, n_steps, dt, initial_velocity, df, name, saving_path,
+                            main_path, interpolation_points, cfl, nodes, case = False, dimensionless=False, input_plot=False, save=True)
+graphic=True
+if graphic:
+    fig_steps, low_limit, upper_limit, pause= 1, -1, 1, 0.1
+    graph(nodes, name, n_steps, 1, saving_path, fig_steps, low_limit, upper_limit, pause)
 
 
 # QUM
@@ -74,5 +74,4 @@ graph(nodes, name, n_steps, 1, saving_path, fig_steps, low_limit, upper_limit, p
 
 # Layer analysis
 # layer_number_f(layers, indexes, nodes, n_steps, dt, time, initial_velocity, amplitude, period, input_time, url, df, name, save=False)
-
 

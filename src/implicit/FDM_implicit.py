@@ -6,8 +6,8 @@ from .statusbar.statusbar import status_bar
 
 
 
-def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, battery_map, _e_modulus_dict, 
-                    gamma_map, phi_map, interpolation_points):
+def fdm_implicit(dx, interphase_position, nodes, x, n_steps, dt, initial_velocity, battery_map, _e_modulus_dict, 
+                    gamma_map, phi_map, interpolation_points, input_plot, interphase_dimensionless_condition):
 
     sb = status_bar(n_steps)
     # Matrix definition and vectors
@@ -19,11 +19,17 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
     h = np.zeros((nodes, n_steps + 1))  # Matrix where the solution is stored after iteration
 
     interphase_node = []
-    for _interphase_position in range(len(interphase_position)):  # compute an integer value for each interphase
-        value = round((round(interphase_position[_interphase_position], 3)) * nodes, 0)
-        interphase_node.append(value)
+    
+    if interphase_dimensionless_condition:
+        for _interphase_position in range(len(interphase_position)):  # compute an integer value for each interphase
+            value = round((round(interphase_position[_interphase_position], 4)) * nodes)
+            interphase_node.append(value)
+    else:
+        for _interphase_position in range(len(interphase_position)):  # compute an integer value for each interphase
+            value = int(interphase_position[_interphase_position] / dx)
+            interphase_node.append(value)
 
-    _y = input_f(np.arange(0, 9.4e-07, dt), dt)
+    _y = input_f(dt,input_plot)
 
     if interpolation_points == 5:
         for j in range(0, n_steps):  # Implicit Finite Difference Method implementation

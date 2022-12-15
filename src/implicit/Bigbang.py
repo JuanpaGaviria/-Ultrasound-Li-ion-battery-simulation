@@ -3,13 +3,14 @@ import pandas as pd
 from src.implicit.material_constructor import Material
 
 
-def big_bang(indexes, df, nodes, battery_map, dt):
+def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless):
 
     materials = []  # Material type present in the test (str)
     materials_summary = []  # Material instantiation
     materials_number = int(len(indexes))  # Amount of different materials present in the test
     materials_thickness = []  # thickness
-    material_dimensionless_length = []  # dimensional thickness
+    material_dimensionless_length = []  # dimensionaless thickness
+    material_dimensional_length = []  # dimensionaless thickness
     interphase_position = []  # interphase position
     materials_e_modulus = []  # e_modulus for each index
     summary_e_modulus = []  # e_modulus for the map
@@ -25,9 +26,13 @@ def big_bang(indexes, df, nodes, battery_map, dt):
 
     # Obtaining the materials attributes
     df = df.set_index('Type')  # Type column is set as the index of the data frame
+    df['density'] = df['density'].astype(float)
+    df['thickness'] = df['thickness'].astype(float)
+    df['e_modulus'] = df['e_modulus'].astype(float)
+    df['c'] = df['c'].astype(float)
     for j in range(materials_number):
         _material = materials[j]  # takes each materials type to get attributes
-        density = df.loc[_material, 'density']  # Takes density for each material
+        density = df.loc[_material, 'density'] # Takes density for each material
         e_modulus = df.loc[_material, 'e_modulus']  # Takes elastic modulus for each material
         thickness = df.loc[_material, 'thickness']  # Takes thickness for each material
         state = df.loc[_material, 'state']  # Takes state for each material
@@ -52,25 +57,59 @@ def big_bang(indexes, df, nodes, battery_map, dt):
         _id = battery_map[_e_modulus]
         e_modulus = _e_modulus_dict[_id]
         summary_e_modulus.append(e_modulus)
+    
+    max_velocity = 0
+    for _velocity in range(len(indexes)):
+        _material = materials[_velocity]  # takes each materials type to get attributes
+        velocity = df.loc[_material, 'c']
+        if velocity > max_velocity:
+            max_velocity = velocity
+    if dimensionless:
+        
+        # dimensionless length definition
+        for _dimensionless_thicks in range(len(battery_map)):  # computes the dimensionless thickness
+            _id = battery_map[_dimensionless_thicks]
+            dimensionless_thickness = _dict[_id] / length
+            material_dimensionless_length.append(dimensionless_thickness)  # save each dimensionless thickness in a list
 
-    # dimensionless length definition
-    for _dimensionless_length in range(len(battery_map)):  # computes the dimensionless thickness
-        _id = battery_map[_dimensionless_length]
-        dimensionless_thickness = _dict[_id] / length
-        material_dimensionless_length.append(dimensionless_thickness)  # save each dimensionless thickness in a list
+        # definition of the interphase positions
+        positions = 0
+        for _interphase_position in range(len(battery_map)-1):
+            positions = positions + material_dimensionless_length[_interphase_position]
+            interphase_position.append(positions)
 
-    # definition of the interphase positions
-    positions = 0
-    for i in range(len(material_dimensionless_length)-1):
-        positions = positions + material_dimensionless_length[i]
-        interphase_position.append(positions)
+        dimensionless_length = 0
+        for _dimensionless_length in range(len(material_dimensionless_length)):  # checking total dimensionless length = 1
+            dimensionless_length = dimensionless_length + material_dimensionless_length[_dimensionless_length]
+        
+        if not nodes:
+            # dx = dt*np.sqrt(2)*higher_velocity/(cfl)
+            dx = dt*max_velocity/(cfl)
+            nodes = int(dimensionless_length/dx)
+        else:
+            dx = dimensionless_length/(nodes-1)
+        x = np.linspace(0, dimensionless_length, nodes)
 
-    dimensionless_length = 0
-    for j in range(len(material_dimensionless_length)):  # checking total dimensionless length = 1
-        dimensionless_length = dimensionless_length + material_dimensionless_length[j]
+    else:
+        # dimensionless length definition
+        for _thicks in range(len(battery_map)):  # computes the dimensionless thickness
+            _id = battery_map[_thicks]
+            dimensional_thickness = _dict[_id]
+            material_dimensional_length.append(dimensional_thickness)  # save each dimensionless thickness in a list
 
-    dx = dimensionless_length/(nodes-1)
-    x = np.linspace(0, dimensionless_length, nodes)
+        positions = 0
+        for _interphase_position in range(len(battery_map)-1):
+            positions = positions + material_dimensional_length[_interphase_position]
+            interphase_position.append(positions)
+
+        if not nodes:
+            
+            # dx = dt*np.sqrt(2)*higher_velocity/(cfl)
+            dx = dt*max_velocity/(cfl)
+            nodes = int(length/dx)
+        else:   
+            dx = length/(nodes-1)
+        x = np.linspace(0, length, nodes)
 
     for _gamma_phi in range(materials_number):
         materials_summary[_gamma_phi].gamma_phi_m(dt, dx)
@@ -87,5 +126,7 @@ def big_bang(indexes, df, nodes, battery_map, dt):
         phi = phi_dict[_id]
         gamma_map.append(gamma)
         phi_map.append(phi)
-
-    return x, interphase_position, _e_modulus_dict, gamma_map, phi_map, materials_summary
+    print("nodes", nodes)
+    print("length", length)
+    print("dx", dx)
+    return x, interphase_position, _e_modulus_dict, gamma_map, phi_map, materials_summary, nodes, dx, max_velocity

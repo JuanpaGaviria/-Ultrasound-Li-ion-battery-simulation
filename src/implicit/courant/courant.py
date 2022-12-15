@@ -1,8 +1,5 @@
-def courant(dx, dt, indexes, maerials_summary):
+def courant(dx, dt, higher_velocity):
 
-    courant_material=[]
-
-    for i in range(len(maerials_summary)):
-        courant_material.append(((maerials_summary[i].square_velocity)**(1/2)*dt)/dx)
+    CFL_value = (higher_velocity*dt)/dx
         
-    return courant_material
+    return CFL_value
