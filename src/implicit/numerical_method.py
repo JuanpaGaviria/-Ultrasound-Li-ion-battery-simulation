@@ -19,7 +19,6 @@ def numerical_method_implicit(indexes, geometric_unit  ,layer_number, n_steps, d
     x , interphase_position, _e_modulus_dict, gamma_map, phi_map, materials_summary, nodes, dx, higher_velocity = Bigbang.big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless)
     
     cfl_value = courant(dx, dt, higher_velocity)
-    print("cfl", cfl_value)
     H = fdm_implicit(dx, interphase_position, nodes, x, n_steps, dt, initial_velocity, battery_map, _e_modulus_dict, 
                     gamma_map, phi_map, interpolation_points, input_plot, interphase_dimensionless_condition)
 
