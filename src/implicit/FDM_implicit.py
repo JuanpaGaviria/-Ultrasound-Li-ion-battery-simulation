@@ -5,9 +5,8 @@ from .fdm_constructors import InputWave_3, InputWave_5  # Traveling wave
 from .statusbar.statusbar import status_bar
 
 
-
-def fdm_implicit(dx, interphase_position, nodes, x, n_steps, dt, initial_velocity, battery_map, _e_modulus_dict, 
-                    gamma_map, phi_map, interpolation_points, input_plot, interphase_dimensionless_condition):
+def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, battery_map, _e_modulus_dict, 
+                    gamma_map, phi_map, interpolation_points, plot):
 
     sb = status_bar(n_steps)
     # Matrix definition and vectors
@@ -19,17 +18,11 @@ def fdm_implicit(dx, interphase_position, nodes, x, n_steps, dt, initial_velocit
     h = np.zeros((nodes, n_steps + 1))  # Matrix where the solution is stored after iteration
 
     interphase_node = []
-    
-    if interphase_dimensionless_condition:
-        for _interphase_position in range(len(interphase_position)):  # compute an integer value for each interphase
-            value = round((round(interphase_position[_interphase_position], 4)) * nodes)
-            interphase_node.append(value)
-    else:
-        for _interphase_position in range(len(interphase_position)):  # compute an integer value for each interphase
-            value = int(interphase_position[_interphase_position] / dx)
-            interphase_node.append(value)
+    for _interphase_position in range(len(interphase_position)):  # compute an integer value for each interphase
+        value = round((round(interphase_position[_interphase_position], 3)) * nodes, 0)
+        interphase_node.append(value)
 
-    _y = input_f(dt,input_plot)
+    _y = input_f(dt, plot)
 
     if interpolation_points == 5:
         for j in range(0, n_steps):  # Implicit Finite Difference Method implementation
@@ -165,13 +158,6 @@ def fdm_implicit(dx, interphase_position, nodes, x, n_steps, dt, initial_velocit
                                 a[node_count, node_count] = formulation.a_i_i
                                 b[node_count] = formulation.b
 
-                            if (j >= (len(_y)-1)) and (j <= (len(_y) + 200)):  # Dirichlet
-                                # u_left: float = 0
-                                # formulation.node_0_dirichlet(u_left)
-                                # a[node_count, node_count] = formulation.a_i_i
-                                # b[node_count] = formulation.b
-                                pass
-
                             if j >= (len(_y)):  # Neumann
                                 gamma = gamma_map[interphase_count]
                                 formulation.node_0_neumann()
@@ -188,15 +174,6 @@ def fdm_implicit(dx, interphase_position, nodes, x, n_steps, dt, initial_velocit
                                 a[node_count, node_count] = formulation.a_i_i
                                 a[node_count, node_count + 1] = formulation.a_i_i1
                                 b[node_count] = formulation.b
-
-                            if (j >= (len(_y)-1)) and (j <= (len(_y) + 200)):  # Dirichlet
-                                # u_left: float = 0
-                                # gamma = gamma_map[interphase_count]
-                                # formulation.node_1_dirichlet(gamma, uj0[node_count], uj_1[node_count], u_left)
-                                # a[node_count, node_count] = formulation.a_i_i
-                                # a[node_count, node_count + 1] = formulation.a_i_i1
-                                # b[node_count] = formulation.b
-                                pass
 
                             if j >= (len(_y)):  # Neumann
                                 gamma = gamma_map[interphase_count]
@@ -218,18 +195,7 @@ def fdm_implicit(dx, interphase_position, nodes, x, n_steps, dt, initial_velocit
                                 a[node_count, node_count + 2] = formulation.a_i_i2
                                 b[node_count] = formulation.b
 
-                            if (j >= (len(_y)-1)) and (j <= (len(_y) + 200)):  # Dirichlet
-                                # u_left: float = 0
-                                # phi = phi_map[interphase_count]
-                                # formulation.node_2_dirichlet(phi, uj0[node_count], uj_1[node_count], u_left)
-                                # a[node_count, node_count - 1] = formulation.a_i_i_1
-                                # a[node_count, node_count] = formulation.a_i_i
-                                # a[node_count, node_count + 1] = formulation.a_i_i1
-                                # a[node_count, node_count + 2] = formulation.a_i_i2
-                                # b[node_count] = formulation.b
-                                pass
-
-                            if j >= (len(_y)):  # Neumann
+                            if j >= (len(_y)):
                                 phi = phi_map[interphase_count]
                                 formulation.internal_node(phi, uj0[node_count], uj_1[node_count])
                                 a[node_count, node_count - 2] = formulation.a_i_i_2
@@ -321,8 +287,10 @@ def fdm_implicit(dx, interphase_position, nodes, x, n_steps, dt, initial_velocit
                             a[node_count, node_count] = formulation.a_i_i
                             b[node_count] = formulation.b
                 
-                #  uj1 = np.linalg.solve(a, b)
                 a_inverse = np.linalg.pinv(a)
+                if j == 1:
+                    cond_num = np.linalg.cond(a_inverse)
+                    print("condition number is", cond_num)
                 uj1 = np.dot(a_inverse, b)
                 h[:, j + 1] = uj1[:]
                 uj_1 = uj0
@@ -417,13 +385,6 @@ def fdm_implicit(dx, interphase_position, nodes, x, n_steps, dt, initial_velocit
                                 a[node_count, node_count] = formulation.a_i_i
                                 b[node_count] = formulation.b
 
-                            if (j >= (len(_y)-1)) and (j <= (len(_y) + 200)):  # Dirichlet
-                                # u_left: float = 0
-                                # formulation.node_0_dirichlet(u_left)
-                                # a[node_count, node_count] = formulation.a_i_i
-                                # b[node_count] = formulation.b
-                                pass
-
                             if j >= (len(_y)):  # Neumann
                                 gamma = gamma_map[interphase_count]
                                 formulation.node_0_neumann()
@@ -440,15 +401,6 @@ def fdm_implicit(dx, interphase_position, nodes, x, n_steps, dt, initial_velocit
                                 a[node_count, node_count] = formulation.a_i_i
                                 a[node_count, node_count + 1] = formulation.a_i_i1
                                 b[node_count] = formulation.b
-
-                            if (j >= (len(_y)-1)) and (j <= (len(_y) + 200)):  # Dirichlet
-                                # u_left: float = 0
-                                # gamma = gamma_map[interphase_count]
-                                # formulation.node_1_dirichlet(gamma, uj0[node_count], uj_1[node_count], u_left)
-                                # a[node_count, node_count] = formulation.a_i_i
-                                # a[node_count, node_count + 1] = formulation.a_i_i1
-                                # b[node_count] = formulation.b
-                                pass
 
                             if j >= (len(_y)):  # Neumann
                                 gamma = gamma_map[interphase_count]
@@ -503,6 +455,9 @@ def fdm_implicit(dx, interphase_position, nodes, x, n_steps, dt, initial_velocit
 
                 #  uj1 = np.linalg.solve(a, b)
                 a_inverse = np.linalg.pinv(a)
+                if j == 1:
+                    cond_num = np.linalg.cond(a_inverse)
+                    print("condition number is", cond_num)                
                 uj1 = np.dot(a_inverse, b)
                 h[:, j + 1] = uj1[:]
                 uj_1 = uj0
