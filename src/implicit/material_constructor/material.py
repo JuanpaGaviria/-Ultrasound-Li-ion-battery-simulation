@@ -9,10 +9,6 @@ class Material:
         self.type = _type
         self.gamma = None
         self.phi = None
-        if self.state == 'liquid':
-            self.square_velocity = self.bulk_modulus/self.density
-        else:
-            self.square_velocity = self.e_modulus/self.density
 
     def gamma_phi_m(self, dt, dx):  # computing abbreviations
         self.gamma = self.density * dx**2 / (self.e_modulus * dt**2)

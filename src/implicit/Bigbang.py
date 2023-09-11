@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 from src.implicit.material_constructor import Material
 
-
 def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless):
 
     materials = []  # Material type present in the test (str)
@@ -89,6 +88,10 @@ def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless):
         else:
             dx = dimensionless_length/(nodes-1)
         x = np.linspace(0, dimensionless_length, nodes)
+        print('nodes',nodes)
+        print('dimensionless length', dimensionless_length)
+        print('dx', dx)
+
 
     else:
         # dimensionless length definition
@@ -110,6 +113,9 @@ def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless):
         else:   
             dx = length/(nodes-1)
         x = np.linspace(0, length, nodes)
+        print("nodes", nodes)
+        print("length", length)
+        print("dx", dx)
 
     for _gamma_phi in range(materials_number):
         materials_summary[_gamma_phi].gamma_phi_m(dt, dx)
@@ -126,7 +132,5 @@ def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless):
         phi = phi_dict[_id]
         gamma_map.append(gamma)
         phi_map.append(phi)
-    print("nodes", nodes)
-    print("length", length)
-    print("dx", dx)
+    
     return x, interphase_position, _e_modulus_dict, gamma_map, phi_map, materials_summary, nodes, dx, max_velocity
