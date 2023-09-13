@@ -10,8 +10,13 @@ class Material:
         self.gamma = None
         self.phi = None
 
-    def gamma_phi_m(self, dt, dx):  # computing abbreviations
-        self.gamma = self.density * dx**2 / (self.e_modulus * dt**2)
-        self.phi = self.gamma*12
+    def gamma_phi_m(self, dt, dx, thickness, rescale):  # computing abbreviations
+
+        if rescale:
+            self.gamma = (self.density * self.thickness**2 * dx**2) / (self.e_modulus * dt**2)
+            self.phi = self.gamma*12
+        else:
+            self.gamma = (self.density * dx**2) / (self.e_modulus * dt**2)
+            self.phi = self.gamma*12
 
 

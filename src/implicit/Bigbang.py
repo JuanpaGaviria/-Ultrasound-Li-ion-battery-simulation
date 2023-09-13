@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from src.implicit.material_constructor import Material
 
-def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless):
+def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless, rescale):
 
     materials = []  # Material type present in the test (str)
     materials_summary = []  # Material instantiation
@@ -13,6 +13,7 @@ def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless):
     interphase_position = []  # interphase position
     materials_e_modulus = []  # e_modulus for each index
     summary_e_modulus = []  # e_modulus for the map
+    summary_thickness = []
     materials_gamma = []
     gamma_map = []
     materials_phi = []
@@ -56,6 +57,12 @@ def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless):
         _id = battery_map[_e_modulus]
         e_modulus = _e_modulus_dict[_id]
         summary_e_modulus.append(e_modulus)
+
+    _thickness_dict = dict(zip(indexes, materials_thickness))
+    for _thickness in range(len(battery_map)):
+        _id = battery_map[_thickness]
+        thickness = _thickness_dict[_id]
+        summary_thickness.append(thickness)
     
     max_velocity = 0
     for _velocity in range(len(indexes)):
@@ -118,7 +125,7 @@ def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless):
         print("dx", dx)
 
     for _gamma_phi in range(materials_number):
-        materials_summary[_gamma_phi].gamma_phi_m(dt, dx)
+        materials_summary[_gamma_phi].gamma_phi_m(dt, dx, thickness, rescale)
         gamma = materials_summary[_gamma_phi].gamma
         phi = materials_summary[_gamma_phi].phi
         materials_gamma.append(gamma)
@@ -133,4 +140,4 @@ def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless):
         gamma_map.append(gamma)
         phi_map.append(phi)
     
-    return x, interphase_position, _e_modulus_dict, gamma_map, phi_map, materials_summary, nodes, dx, max_velocity
+    return x, interphase_position, _e_modulus_dict, gamma_map, phi_map, materials_summary, nodes, dx, max_velocity, _thickness_dict

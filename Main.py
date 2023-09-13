@@ -30,19 +30,20 @@ df = pd.read_csv(url, dtype=object)
 indexes = [4,15]  # materials definition discharged
 geometry_unit = [4,15]  # Geometry
 
-dt = 0.001
-nodes = 500
-cfl = False
-n_steps = 100
+dt = 0.0001
+nodes = 2129
+cfl = 0.99
+n_steps = 200
 time = n_steps*dt
 layer_number = 4 # The condition is that the half of the number must be an even number
 interpolation_points = 5
-name = 'steps_'f'{n_steps}''_nodes_'f'{nodes}''_dt_'f'{dt}''_int_'f'{interpolation_points}''.csv'
-nodes = method_switcher.get("implicit")(indexes, geometry_unit  ,layer_number, n_steps, dt, initial_velocity, df, name, saving_path,
-                            main_path, interpolation_points, cfl, nodes, case = False, dimensionless=True, input_plot=False, save=True)
+# name = 'steps_'f'{n_steps}''_nodes_'f'{nodes}''_dt_'f'{dt}''_int_'f'{interpolation_points}''.csv'
+name = "steps_200_nodes_False_dt_0.0001_int_5.csv"
+# nodes = method_switcher.get("implicit")(indexes, geometry_unit  ,layer_number, n_steps, dt, initial_velocity, df, name, saving_path,
+#                             main_path, interpolation_points, cfl, nodes, case = False, dimensionless=True, input_plot=False, rescale=False, save=True)
 graphic=True
 if graphic:
-    fig_steps, low_limit, upper_limit, pause= 1, -1.5, 1.5, 0.1
+    fig_steps, low_limit, upper_limit, pause= 10, -1.5, 1.5, 0.1
     graph(nodes, name, n_steps, 1, saving_path, fig_steps, low_limit, upper_limit, pause)
 
 

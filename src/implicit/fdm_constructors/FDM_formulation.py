@@ -91,8 +91,12 @@ class InputWave_5(ImplicitFormulation):
         self.a_i_i_2 = None  # U^j_(i-2)
         self.b = None
 
-    def alpha_m(self, e_modulus_1, e_modulus_2):
-        self.alpha = e_modulus_2 / e_modulus_1
+    def alpha_m(self, e_modulus_1, e_modulus_2, l_1, l_2, rescale):
+        if rescale:
+            self.alpha = e_modulus_2 * l_2/ (e_modulus_1 * l_1)
+        else:
+            self.alpha = e_modulus_2 / e_modulus_1
+
 
     def node_0_dirichlet(self, u_left):
         self.a_i_i = 1
@@ -238,8 +242,11 @@ class InputWave_3(ImplicitFormulation):
 
         self.b = None
 
-    def alpha_m(self, e_modulus_1, e_modulus_2):
-        self.alpha = e_modulus_2 / e_modulus_1
+    def alpha_m(self, e_modulus_1, e_modulus_2, l_1, l_2, rescale):
+        if rescale:
+            self.alpha = e_modulus_2 * l_2/ (e_modulus_1 * l_1)
+        else:
+            self.alpha = e_modulus_2 / e_modulus_1
 
     def node_0_dirichlet(self, u_left):
         self.a_i_i = 1

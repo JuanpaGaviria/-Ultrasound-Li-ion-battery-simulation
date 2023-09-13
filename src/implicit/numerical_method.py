@@ -7,20 +7,16 @@ import os
 
 
 def numerical_method_implicit(indexes, geometric_unit  ,layer_number, n_steps, dt, initial_velocity, df, name, saving_path,
-                            main_path, interpolation_points, cfl, nodes, case, dimensionless, input_plot, save):
+                            main_path, interpolation_points, cfl, nodes, case, dimensionless, input_plot, rescale, save):
     
     battery_map = battery_structure(geometric_unit, layer_number, case)
 
-    if dimensionless == True:
-        interphase_dimensionless_condition = True
-    else:
-        interphase_dimensionless_condition = False
-
-    x , interphase_position, _e_modulus_dict, gamma_map, phi_map, materials_summary, nodes, dx, higher_velocity = Bigbang.big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless)
+    x , interphase_position, _e_modulus_dict, gamma_map, phi_map, materials_summary, nodes, dx, higher_velocity, _thickness_dict = Bigbang.big_bang(indexes, 
+                                                                                                    df, nodes, battery_map, dt, cfl, dimensionless, rescale)
     
     cfl_value = courant(dx, dt, higher_velocity)
-    H = fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, battery_map, _e_modulus_dict, 
-                    gamma_map, phi_map, interpolation_points, input_plot)
+    H = fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, battery_map, _e_modulus_dict, _thickness_dict,  
+                    gamma_map, phi_map, interpolation_points, input_plot, rescale)
 
 
     if save:
