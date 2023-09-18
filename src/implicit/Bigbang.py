@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from src.implicit.material_constructor import Material
 
-def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless, rescale):
+def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless, rescale_t, rescale_x):
 
     materials = []  # Material type present in the test (str)
     materials_summary = []  # Material instantiation
@@ -125,7 +125,7 @@ def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless, rescale):
         print("dx", dx)
 
     for _gamma_phi in range(materials_number):
-        materials_summary[_gamma_phi].gamma_phi_m(dt, dx, thickness, rescale)
+        materials_summary[_gamma_phi].gamma_phi_m(dt, dx, rescale_t, rescale_x)
         gamma = materials_summary[_gamma_phi].gamma
         phi = materials_summary[_gamma_phi].phi
         materials_gamma.append(gamma)

@@ -242,8 +242,8 @@ class InputWave_3(ImplicitFormulation):
 
         self.b = None
 
-    def alpha_m(self, e_modulus_1, e_modulus_2, l_1, l_2, rescale):
-        if rescale:
+    def alpha_m(self, e_modulus_1, e_modulus_2, l_1, l_2, rescale_x):
+        if rescale_x:
             self.alpha = e_modulus_2 * l_2/ (e_modulus_1 * l_1)
         else:
             self.alpha = e_modulus_2 / e_modulus_1
