@@ -30,21 +30,21 @@ df = pd.read_csv(url, dtype=object)
 indexes = [4,15]  # materials definition discharged
 geometry_unit = [4,15]  # Geometry
 
-dt = 0.001
-nodes = False
-cfl = 0.99
-n_steps = 1200
-time = n_steps*dt
-layer_number = 2 # The condition is that the half of the number must be an even number
-interpolation_points = 5
+dt = 1e-4
+nodes = 3840
+cfl = False
+time = 0.1
+n_steps = int(time/dt)
+layer_number = 128 # The condition is that the half of the number must be an even number
+interpolation_points = 3
 rescale_t = 0.1
-rescale_x = False
-#name = 'steps_'f'{n_steps}''_nodes_'f'{nodes}''_dt_'f'{dt}''_int_'f'{interpolation_points}''_rt_'f'{rescale_t}''_rx_'f'{rescale_x}''.csv'
-#nodes = method_switcher.get("implicit")(indexes, geometry_unit  ,layer_number, n_steps, dt, initial_velocity, df, name, saving_path,
-#          main_path, interpolation_points, cfl, nodes, rescale_t, rescale_x, case = False, dimensionless=True, input_plot=False, save=True)
+rescale_x = 0.1
+name = 'steps_'f'{n_steps}''_nodes_'f'{nodes}''_dt_'f'{dt}''_int_'f'{interpolation_points}''_rt_'f'{rescale_t}''_rx_'f'{rescale_x}''.csv'
+nodes = method_switcher.get("implicit")(indexes, geometry_unit  ,layer_number, n_steps, dt, initial_velocity, df, name, saving_path, 
+                                        main_path, interpolation_points, cfl, nodes, rescale_t, rescale_x, 
+                                        rescale_thickness=False, case = False, dimensionless=True, input_plot=False, save=True)
 graphic=True
-name = "steps_1200_nodes_False_dt_0.001_int_5_rt_0.1_rx_False.csv"
-nodes=212
+# name = "steps_1200_nodes_False_dt_0.001_int_5_rt_0.1_rx_False.csv"
 if graphic:
     fig_steps, low_limit, upper_limit, pause= 10, -1.0, 1.0, 0.1
     graph(nodes, name, n_steps, 1, saving_path, fig_steps, low_limit, upper_limit, pause)
