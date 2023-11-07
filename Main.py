@@ -28,11 +28,11 @@ saving_path = 'src/result_processing/Simulation'
 url = './src/database/materials_properties.csv'
 initial_velocity = 1
 df = pd.read_csv(url, dtype=object)
-indexes = [4,15]  # materials definition discharged
+indexes = [4,4]  # materials definition discharged
 geometry_unit = [4,4]  # Geometry
 
 dt = 1e-3
-nodes = 41
+nodes = 100
 cfl = False
 time = 10
 n_steps = int(time/dt)
@@ -44,7 +44,7 @@ name = 'steps_'f'{n_steps}''_nodes_'f'{nodes}''_dt_'f'{dt}''_int_'f'{interpolati
 nodes = method_switcher.get("implicit")(indexes, geometry_unit  ,layer_number, n_steps, dt, initial_velocity, df, name, saving_path, 
                                         main_path, interpolation_points, cfl, nodes, rescale_t, rescale_x, 
                                         rescale_thickness=False, case = False, dimensionless=True, input_plot=False, save=True)
-graphic=False
+graphic=True
 # name = "steps_1200_nodes_False_dt_0.001_int_5_rt_0.1_rx_False.csv"
 if graphic:
     fig_steps, low_limit, upper_limit, pause= 10, -1.0, 1.0, 0.1
