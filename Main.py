@@ -14,6 +14,7 @@ from src.result_processing.SOC.SOC_df import *
 from src.result_processing.SOC.SOC_fun import *
 from src.result_processing.SOC.functions import *
 from src.result_processing.QUS.iterations import *
+from src.result_processing.output_signal.output_signal import *
 from src.implicit.graph.graph import graph
 from src.implicit.courant import courant
 
@@ -28,22 +29,22 @@ url = './src/database/materials_properties.csv'
 initial_velocity = 1
 df = pd.read_csv(url, dtype=object)
 indexes = [4,15]  # materials definition discharged
-geometry_unit = [4,15]  # Geometry
+geometry_unit = [4,4]  # Geometry
 
-dt = 1e-4
-nodes = 3840
+dt = 1e-3
+nodes = 41
 cfl = False
-time = 0.1
+time = 10
 n_steps = int(time/dt)
-layer_number = 128 # The condition is that the half of the number must be an even number
-interpolation_points = 3
+layer_number = 2 # The condition is that the half of the number must be an even number
+interpolation_points = 5
 rescale_t = 0.1
-rescale_x = 0.1
+rescale_x = False
 name = 'steps_'f'{n_steps}''_nodes_'f'{nodes}''_dt_'f'{dt}''_int_'f'{interpolation_points}''_rt_'f'{rescale_t}''_rx_'f'{rescale_x}''.csv'
 nodes = method_switcher.get("implicit")(indexes, geometry_unit  ,layer_number, n_steps, dt, initial_velocity, df, name, saving_path, 
                                         main_path, interpolation_points, cfl, nodes, rescale_t, rescale_x, 
                                         rescale_thickness=False, case = False, dimensionless=True, input_plot=False, save=True)
-graphic=True
+graphic=False
 # name = "steps_1200_nodes_False_dt_0.001_int_5_rt_0.1_rx_False.csv"
 if graphic:
     fig_steps, low_limit, upper_limit, pause= 10, -1.0, 1.0, 0.1
@@ -79,3 +80,10 @@ if graphic:
 # Layer analysis
 # layer_number_f(layers, indexes, nodes, n_steps, dt, time, initial_velocity, amplitude, period, input_time, url, df, name, save=False)
 
+# output-signal -- It works as long as graphic=False: line 47
+output  = output_signal(dt, name)
+plt.plot(output[0][940:], output[1][940:])
+plt.xlabel('Time (μs)')
+plt.ylabel('Deformation')
+plt.title('Output signal: Node 0')
+plt.show()
