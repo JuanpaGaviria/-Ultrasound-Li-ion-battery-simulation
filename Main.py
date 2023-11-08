@@ -1,6 +1,10 @@
 # Requirements
 import pandas as pd
 import os
+
+#change the working directory
+os.chdir(os.path.dirname(__file__))
+
 # import explicit
 
 # Internal Numerical Methods
@@ -28,17 +32,17 @@ saving_path = 'src/result_processing/Simulation'
 url = './src/database/materials_properties.csv'
 initial_velocity = 1
 df = pd.read_csv(url, dtype=object)
-indexes = [4,4]  # materials definition discharged
-geometry_unit = [4,4]  # Geometry
+indexes = [4,15]  # materials definition discharged
+geometry_unit = [4,15]  # Geometry
 
-dt = 1e-3
-nodes = 100
+dt = 1.45e-3
+nodes = 150
 cfl = False
-time = 10
+time = 6
 n_steps = int(time/dt)
-layer_number = 2 # The condition is that the half of the number must be an even number
+layer_number = 4 # The condition is that the half of the number must be an even number
 interpolation_points = 5
-rescale_t = 0.1
+rescale_t = False
 rescale_x = False
 name = 'steps_'f'{n_steps}''_nodes_'f'{nodes}''_dt_'f'{dt}''_int_'f'{interpolation_points}''_rt_'f'{rescale_t}''_rx_'f'{rescale_x}''.csv'
 nodes = method_switcher.get("implicit")(indexes, geometry_unit  ,layer_number, n_steps, dt, initial_velocity, df, name, saving_path, 
