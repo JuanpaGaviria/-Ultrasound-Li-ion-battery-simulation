@@ -4,9 +4,12 @@ from .fdm_constructors import InputWave_3, InputWave_5  # Traveling wave
 # from .fdm_constructors import InputWave_3  # Traveling wave
 from .statusbar.statusbar import status_bar
 
+from scipy.sparse.linalg import bicgstab
+from scipy.sparse import csc_matrix
+
 
 def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, battery_map, _e_modulus_dict, _thickness_dict, 
-                    gamma_map, phi_map, interpolation_points, plot, rescale_x, rescale_thickness):
+                    gamma_map, phi_map, interpolation_points, plot, rescale_x, rescale_thickness, tol, condition_number):
 
     sb = status_bar(n_steps)
     # Matrix definition and vectors
@@ -151,8 +154,9 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
                             a[node_count, node_count] = formulation.a_i_i
                             b[node_count] = formulation.b
 
-                a_inverse = np.linalg.pinv(a)
-                uj1 = np.dot(a_inverse, b)
+                # a_inverse = np.linalg.pinv(a)
+                # uj1 = np.dot(a_inverse, b)
+                uj1 = bicgstab(csc_matrix(a), b,tol=tol)[0]
                 h[:, j+1] = uj1[:]
                 uj_1 = uj0
                 uj0 = uj1
@@ -309,11 +313,14 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
                             a[node_count, node_count] = formulation.a_i_i
                             b[node_count] = formulation.b
                 
-                a_inverse = np.linalg.pinv(a)
-                if j == 1:
-                    cond_num = np.linalg.cond(a_inverse)
-                    print("condition number is", cond_num)
-                uj1 = np.dot(a_inverse, b)
+                
+                if j == 1 and condition_number:
+                    # a_inverse = np.linalg.pinv(a)
+                    #cond_num = np.linalg.cond(a_inverse)
+                    cond_num = np.linalg.cond(a) # No es necesario calcular la inversa
+                    print("Condition number: ", cond_num)
+
+                uj1 = bicgstab(csc_matrix(a), b,x0=uj0,tol=tol)[0]
                 h[:, j + 1] = uj1[:]
                 uj_1 = uj0
                 uj0 = uj1

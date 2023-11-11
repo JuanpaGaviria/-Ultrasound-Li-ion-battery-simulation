@@ -35,23 +35,24 @@ df = pd.read_csv(url, dtype=object)
 indexes = [4,15]  # materials definition discharged
 geometry_unit = [4,15]  # Geometry
 
-dt = 1.45e-3
-nodes = 150
+dt = 1e-3
+nodes = 200
 cfl = False
 time = 6
 n_steps = int(time/dt)
-layer_number = 4 # The condition is that the half of the number must be an even number
+layer_number = 50 # The condition is that the half of the number must be an even number
 interpolation_points = 5
-rescale_t = False
+rescale_t = 0.05
 rescale_x = False
 name = 'steps_'f'{n_steps}''_nodes_'f'{nodes}''_dt_'f'{dt}''_int_'f'{interpolation_points}''_rt_'f'{rescale_t}''_rx_'f'{rescale_x}''.csv'
 nodes = method_switcher.get("implicit")(indexes, geometry_unit  ,layer_number, n_steps, dt, initial_velocity, df, name, saving_path, 
                                         main_path, interpolation_points, cfl, nodes, rescale_t, rescale_x, 
-                                        rescale_thickness=False, case = False, dimensionless=True, input_plot=False, save=True)
+                                        rescale_thickness=False, case = False, dimensionless=True, input_plot=False, save=True, 
+                                        tol = 1e-8, condition_number = True,)
 graphic=True
-# name = "steps_1200_nodes_False_dt_0.001_int_5_rt_0.1_rx_False.csv"
+# name = "steps_1200_nodes_1280_dt_0.005_int_5_rt_0.1_rx_False.csv"
 if graphic:
-    fig_steps, low_limit, upper_limit, pause= 10, -1.0, 1.0, 0.1
+    fig_steps, low_limit, upper_limit, pause= 1, -1.0, 1.0, 0.001
     graph(nodes, name, n_steps, 1, saving_path, fig_steps, low_limit, upper_limit, pause)
 
 
@@ -86,8 +87,9 @@ if graphic:
 
 # output-signal -- It works as long as graphic=False: line 47
 output  = output_signal(dt, name)
-plt.plot(output[0][940:], output[1][940:])
+plt.plot(output[0], output[1])
 plt.xlabel('Time (μs)')
 plt.ylabel('Deformation')
+plt.xlim(0.98,time)
 plt.title('Output signal: Node 0')
 plt.show()
