@@ -83,16 +83,19 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
                             material_1 = battery_map[interphase_count]
                             e_modulus_1 = _e_modulus_dict[material_1]
 
-                            if rescale_x or rescale_thickness:
-                                if rescale_thickness:
-                                    l_1 = _thickness_dict[material_1]
-                                    l_2 = _thickness_dict[material_2]
-                                else:
-                                    l_1 = rescale_x
-                                    l_2 = rescale_x
-                            else:
-                                l_1 = 1
-                                l_2 = 1
+                            # if rescale_x or rescale_thickness:
+                            #     if rescale_thickness:
+                            #         l_1 = _thickness_dict[material_1]
+                            #         l_2 = _thickness_dict[material_2]
+                            #     else:
+                            #         l_1 = rescale_x
+                            #         l_2 = rescale_x
+                            # else:
+                            #     l_1 = 1
+                            #     l_2 = 1
+
+                            l_1 = 1
+                            l_2 = 1
     
                             material_2 = battery_map[interphase_count + 1]
                             e_modulus_2 = _e_modulus_dict[material_2]

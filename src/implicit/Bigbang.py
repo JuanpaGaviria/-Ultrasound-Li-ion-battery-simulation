@@ -8,8 +8,8 @@ def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless, rescale_t,
     materials_summary = []  # Material instantiation
     materials_number = int(len(indexes))  # Amount of different materials present in the test
     materials_thickness = []  # thickness
-    material_dimensionless_length = []  # dimensionaless thickness
-    material_dimensional_length = []  # dimensionaless thickness
+    material_dimensionless_length = []  # dimensionless thickness
+    material_dimensional_length = []  # dimensionless thickness
     interphase_position = []  # interphase position
     materials_e_modulus = []  # e_modulus for each index
     summary_e_modulus = []  # e_modulus for the map
@@ -70,6 +70,12 @@ def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless, rescale_t,
         velocity = df.loc[_material, 'c']
         if velocity > max_velocity:
             max_velocity = velocity
+
+    if rescale_t:
+        max_velocity = max_velocity*rescale_t
+    if rescale_x:
+        max_velocity = max_velocity/rescale_x
+
     if dimensionless:
         
         # dimensionless length definition
@@ -99,7 +105,6 @@ def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless, rescale_t,
         print('dimensionless length', dimensionless_length)
         print('dx', dx)
 
-
     else:
         # dimensionless length definition
         for _thicks in range(len(battery_map)):  # computes the dimensionless thickness
@@ -123,6 +128,13 @@ def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless, rescale_t,
         print("nodes", nodes)
         print("length", length)
         print("dx", dx)
+     
+    if rescale_x:
+        dx = dx/rescale_x
+
+    if rescale_t:
+        dt = dt/rescale_t
+    
 
     for _gamma_phi in range(materials_number):
         materials_summary[_gamma_phi].gamma_phi_m(dt, dx, rescale_t, rescale_x, rescale_thickness)
@@ -139,5 +151,5 @@ def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless, rescale_t,
         phi = phi_dict[_id]
         gamma_map.append(gamma)
         phi_map.append(phi)
-    
+
     return x, interphase_position, _e_modulus_dict, gamma_map, phi_map, materials_summary, nodes, dx, max_velocity, _thickness_dict
