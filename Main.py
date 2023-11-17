@@ -38,12 +38,12 @@ geometry_unit = [4,15]  # Geometry
 dt = 1e-3
 nodes = 2000
 cfl = False
-time = 1
+time = 10
 n_steps = int(time/dt)
 layer_number = 100 # The condition is that the half of the number must be an even number
 interpolation_points = 5
 rescale_t = False
-rescale_x = 1e-12
+rescale_x = False
 name = 'steps_'f'{n_steps}''_nodes_'f'{nodes}''_dt_'f'{dt}''_int_'f'{interpolation_points}''_rt_'f'{rescale_t}''_rx_'f'{rescale_x}''.csv'
 nodes = method_switcher.get("implicit")(indexes, geometry_unit  ,layer_number, n_steps, dt, initial_velocity, df, name, saving_path, 
                                         main_path, interpolation_points, cfl, nodes, rescale_t, rescale_x, 
