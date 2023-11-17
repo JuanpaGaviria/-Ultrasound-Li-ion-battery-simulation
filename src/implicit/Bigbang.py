@@ -26,10 +26,10 @@ def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless, rescale_t,
 
     # Obtaining the materials attributes
     df = df.set_index('Type')  # Type column is set as the index of the data frame
-    df['density'] = df['density'].astype(float)*1000 / 1e3**2 # kg/mm3
-    df['thickness'] = df['thickness'].astype(float)*1e-3 *1e3 #mm
-    df['e_modulus'] = df['e_modulus'].astype(float)*1e9 / 1e6**2 *1e-3 # kg/mm us2	
-    df['c'] = df['c'].astype(float)*1000 / 1e6 *1e3 # mm/us
+    df['density'] = df['density'].astype(float)*1000 # kg/m3
+    df['thickness'] = df['thickness'].astype(float)*1e-3 #m
+    df['e_modulus'] = df['e_modulus'].astype(float)*1e9 / 1e6**2 #Pa
+    df['c'] = df['c'].astype(float)*1000 /1e6 # m/us
     for j in range(materials_number):
         _material = materials[j]  # takes each materials type to get attributes
         density = df.loc[_material, 'density'] # Takes density for each material

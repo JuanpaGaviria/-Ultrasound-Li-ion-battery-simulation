@@ -23,7 +23,10 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
     interphase_node = []
     for _interphase_position in range(len(interphase_position)):  # compute an integer value for each interphase
         # value = round((round(interphase_position[_interphase_position], 3)) * nodes, 0)
-        value = int(interphase_position[_interphase_position]/dx)
+        value = interphase_position[_interphase_position]/dx
+        if rescale_x:
+            value = int(value/rescale_x)
+        value = int(value)
         interphase_node.append(value)
 
     _y = input_f(dt, plot)
