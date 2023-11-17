@@ -33,14 +33,14 @@ url = './src/database/materials_properties.csv'
 initial_velocity = 1
 df = pd.read_csv(url, dtype=object)
 indexes = [4,15]  # materials definition discharged
-geometry_unit = [4,15]  # Geometry
+geometry_unit = [15,4]  # Geometry
 
 dt = 1e-3
-nodes = 400
+nodes = 3200
 cfl = False
 time = 10
 n_steps = int(time/dt)
-layer_number = 2 # The condition is that the half of the number must be an even number
+layer_number = 32 # The condition is that the half of the number must be an even number
 interpolation_points = 5
 rescale_t = False
 rescale_x = False

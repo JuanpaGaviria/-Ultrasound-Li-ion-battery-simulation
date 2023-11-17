@@ -18,7 +18,7 @@ def numerical_method_implicit(indexes, geometric_unit  ,layer_number, n_steps, d
     cfl_value = courant(dx, dt,rescale_t,rescale_x, higher_velocity)
     print(f'Courant: {cfl_value}')
     H = fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, battery_map, _e_modulus_dict, _thickness_dict,  
-                    gamma_map, phi_map, interpolation_points, input_plot, rescale_x,rescale_thickness, tol, condition_number)
+                    gamma_map, phi_map, interpolation_points, input_plot, rescale_x,rescale_thickness, tol, condition_number,dx)
 
 
     if save:
