@@ -163,7 +163,7 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
 
                 # a_inverse = np.linalg.pinv(a)
                 # uj1 = np.dot(a_inverse, b)
-                # uj1 = bicgstab(csc_matrix(a), b,tol=tol)[0]
+                uj1 = bicgstab(csc_matrix(a), b,tol=tol)[0]
                 h[:, j+1] = uj1[:]
                 uj_1 = uj0
                 uj0 = uj1

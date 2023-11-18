@@ -30,17 +30,17 @@ method_switcher = {
 main_path = os.path.dirname(__file__)
 saving_path = 'src/result_processing/Simulation'
 url = './src/database/materials_properties.csv'
-initial_velocity = 1
+initial_velocity = 0
 df = pd.read_csv(url, dtype=object)
-indexes = [4,15]  # materials definition discharged
-geometry_unit = [4,15]  # Geometry
+indexes = [32,33]  # materials definition discharged
+geometry_unit = [32,33]  # Geometry
 
 dt = 1e-3
-nodes = 2000
+nodes = 1000
 cfl = False
-time = 10
+time = 5
 n_steps = int(time/dt)
-layer_number = 100 # The condition is that the half of the number must be an even number
+layer_number = 2 # The condition is that the half of the number must be an even number
 interpolation_points = 5
 rescale_t = False
 rescale_x = False
