@@ -93,7 +93,7 @@ class InputWave_5(ImplicitFormulation):
 
     def alpha_m(self, e_modulus_1, e_modulus_2,rho_1,rho_2):
         # self.alpha = e_modulus_2 / e_modulus_1
-        self.alpha = (e_modulus_2**2*rho_2)/(e_modulus_1**2*rho_1)
+        self.alpha = (e_modulus_1**2*rho_2)/(e_modulus_2**2*rho_1)
 
 
     def node_0_dirichlet(self, u_left):

@@ -32,4 +32,4 @@ cathodeFe_1,FePO4,Solido,NaN,NaN,NaN,NaN,NaN,NaN,176,29.6,154,55.6
 cathodeTi_0,Li2Ti2O4,Solido,NaN,NaN,NaN,NaN,NaN,NaN,204,69.3,204,104.3
 cathodeTi_1,LiTi2O4,Solido,NaN,NaN,NaN,NaN,NaN,NaN,203,86,203,82.8
 Test,MaterialTest1,Solido,NaN,NaN,1.09E+02,5.01E+00,6.00E+00,4.65E+00,422,106,422,68.1
-Test2,MaterialTest2,Solido,NaN,NaN,1.09E+02,5.01E+02,6.00E+00,NaN,NaN,NaN,NaN,NaN
+Test2,MaterialTest2,Solido,NaN,NaN,1.09E+04,5.01E+00,6.00E+00,NaN,NaN,NaN,NaN,NaN

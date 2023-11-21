@@ -35,7 +35,7 @@ df = pd.read_csv(url, dtype=object)
 indexes = [32,33]  # materials definition discharged
 geometry_unit = [32,33]  # Geometry
 
-dt = 1e-4
+dt = 1e-3
 nodes = 1000
 cfl = False
 time = 5
@@ -45,14 +45,14 @@ interpolation_points = 5
 rescale_t = False
 rescale_x = False
 name = 'steps_'f'{n_steps}_nodes_{nodes}_dt_{dt}_int_{interpolation_points}_rt_{rescale_t}_rx_{rescale_x}geo_unit{geometry_unit}layer_n{layer_number}.csv'
-# nodes = method_switcher.get("implicit")(indexes, geometry_unit  ,layer_number, n_steps, dt, initial_velocity, df, name, saving_path, 
-#                                         main_path, interpolation_points, cfl, nodes, rescale_t, rescale_x, 
-#                                         rescale_thickness=False, case = False, dimensionless=False, input_plot=False, save=True, 
-#                                         tol = 1e-8, condition_number = True,)
+nodes = method_switcher.get("implicit")(indexes, geometry_unit  ,layer_number, n_steps, dt, initial_velocity, df, name, saving_path, 
+                                        main_path, interpolation_points, cfl, nodes, rescale_t, rescale_x, 
+                                        rescale_thickness=False, case = False, dimensionless=False, input_plot=False, save=True, 
+                                        tol = 1e-8, condition_number = True,)
 graphic=True
-name = "caso2Co.csv"
+# name = "caso2Co.csv"
 if graphic:
-    fig_steps, low_limit, upper_limit, interval = 1000, -1.0, 1.0, 1e-10
+    fig_steps, low_limit, upper_limit, interval = 1e-2/dt, -1.0, 1.0, 1e-10
     graph(nodes, name, n_steps, 1, saving_path, fig_steps, low_limit, upper_limit, interval, dt)
 
 

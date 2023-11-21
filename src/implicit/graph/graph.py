@@ -23,10 +23,10 @@ def graph(nodes, file, n_steps, dimensionless_length, path, fig_steps, low_limit
         line.set_ydata(h[:, i])
         label = f't = {i*dt:.2f} µs'
         legend.get_texts()[0].set_text(label)
-    anim = animation.FuncAnimation(fig, animate, frames=range(0,n_steps,int(n_steps/fig_steps)), interval=interval)
+    anim = animation.FuncAnimation(fig, animate, frames=range(0,n_steps,int(fig_steps)), interval=interval)
     plt.ylim(low_limit, upper_limit)
     plt.xlabel('x')
     plt.ylabel('Deformation')
     #save animation
-    anim.save(f'wave_implicit{file}.gif', fps=60)
+    anim.save(f'wave_implicit_{file}.gif', fps=60)
     print(f'Saved animation: wave_implicit{file}.gif')
