@@ -44,7 +44,7 @@ layer_number = 2 # The condition is that the half of the number must be an even 
 interpolation_points = 5
 rescale_t = False
 rescale_x = False
-name = 'steps_'f'{n_steps}_nodes_{nodes}_dt_{dt}_int_{interpolation_points}_rt_{rescale_t}_rx_{rescale_x}geo_unit{geometry_unit}layer_n{layer_number}.csv'
+name = 'steps_'f'{n_steps}_nodes_{nodes}_dt_{dt}_int_{interpolation_points}_rt_{rescale_t}_rx_{rescale_x}_geo_unit_{geometry_unit}_layer_n_{layer_number}.csv'
 nodes = method_switcher.get("implicit")(indexes, geometry_unit  ,layer_number, n_steps, dt, initial_velocity, df, name, saving_path, 
                                         main_path, interpolation_points, cfl, nodes, rescale_t, rescale_x, 
                                         rescale_thickness=False, case = False, dimensionless=False, input_plot=False, save=True, 
