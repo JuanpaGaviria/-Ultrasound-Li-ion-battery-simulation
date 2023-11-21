@@ -35,7 +35,7 @@ df = pd.read_csv(url, dtype=object)
 indexes = [32,33]  # materials definition discharged
 geometry_unit = [32,33]  # Geometry
 
-dt = 1e-3
+dt = 1e-4
 nodes = 1000
 cfl = False
 time = 5
@@ -44,16 +44,16 @@ layer_number = 2 # The condition is that the half of the number must be an even 
 interpolation_points = 5
 rescale_t = False
 rescale_x = False
-name = 'steps_'f'{n_steps}''_nodes_'f'{nodes}''_dt_'f'{dt}''_int_'f'{interpolation_points}''_rt_'f'{rescale_t}''_rx_'f'{rescale_x}''.csv'
-nodes = method_switcher.get("implicit")(indexes, geometry_unit  ,layer_number, n_steps, dt, initial_velocity, df, name, saving_path, 
-                                        main_path, interpolation_points, cfl, nodes, rescale_t, rescale_x, 
-                                        rescale_thickness=False, case = False, dimensionless=False, input_plot=False, save=True, 
-                                        tol = 1e-8, condition_number = True,)
+name = 'steps_'f'{n_steps}_nodes_{nodes}_dt_{dt}_int_{interpolation_points}_rt_{rescale_t}_rx_{rescale_x}geo_unit{geometry_unit}layer_n{layer_number}.csv'
+# nodes = method_switcher.get("implicit")(indexes, geometry_unit  ,layer_number, n_steps, dt, initial_velocity, df, name, saving_path, 
+#                                         main_path, interpolation_points, cfl, nodes, rescale_t, rescale_x, 
+#                                         rescale_thickness=False, case = False, dimensionless=False, input_plot=False, save=True, 
+#                                         tol = 1e-8, condition_number = True,)
 graphic=True
-# name = "steps_1200_nodes_1280_dt_0.005_int_5_rt_0.1_rx_False.csv"
+name = "caso2Co.csv"
 if graphic:
-    fig_steps, low_limit, upper_limit, pause= 10, -1.0, 1.0, 0.001
-    graph(nodes, name, n_steps, 1, saving_path, fig_steps, low_limit, upper_limit, pause)
+    fig_steps, low_limit, upper_limit, interval = 1000, -1.0, 1.0, 1e-10
+    graph(nodes, name, n_steps, 1, saving_path, fig_steps, low_limit, upper_limit, interval, dt)
 
 
 # QUM
@@ -86,10 +86,11 @@ if graphic:
 # layer_number_f(layers, indexes, nodes, n_steps, dt, time, initial_velocity, amplitude, period, input_time, url, df, name, save=False)
 
 # output-signal -- It works as long as graphic=False: line 47
-output  = output_signal(dt, name)
-plt.plot(output[0], output[1])
-plt.xlabel('Time (μs)')
-plt.ylabel('Deformation')
-plt.xlim(0,time)
-plt.title('Output signal: Node 0')
-plt.show()
+if graphic == False:
+    output  = output_signal(dt, name)
+    plt.plot(output[0], output[1])
+    plt.xlabel('Time (μs)')
+    plt.ylabel('Deformation')
+    plt.xlim(0,time)
+    plt.title('Output signal: Node 0')
+    plt.show()

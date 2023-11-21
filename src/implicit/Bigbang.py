@@ -12,12 +12,16 @@ def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless, rescale_t,
     material_dimensional_length = []  # dimensionless thickness
     interphase_position = []  # interphase position
     materials_e_modulus = []  # e_modulus for each index
+    materials_rho = [] # rho for each index
     summary_e_modulus = []  # e_modulus for the map
     summary_thickness = []
+    summary_rho = []
     materials_gamma = []
     gamma_map = []
     materials_phi = []
+
     phi_map = []
+    rho_map = []
     # Obtaining the materials type
     for i in range(materials_number):
         idx = indexes[i]  # takes index i
@@ -43,6 +47,7 @@ def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless, rescale_t,
         materials_summary.append(material)  # stores each material in a list
         materials_thickness.append(material.thickness)  # stores each material thickness in a list
         materials_e_modulus.append(material.e_modulus)  # stores each elastic modulus in a list
+        materials_rho.append(material.density) # stores each density in a list
 
     # Length definition
     length = 0
@@ -63,6 +68,12 @@ def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless, rescale_t,
         _id = battery_map[_thickness]
         thickness = _thickness_dict[_id]
         summary_thickness.append(thickness)
+
+    _rho_dict = dict(zip(indexes, materials_rho))
+    for _rho in range(len(battery_map)):
+        _id = battery_map[_rho]
+        rho = _rho_dict[_id]
+        summary_rho.append(rho)
     
     max_velocity = 0
     for _velocity in range(len(indexes)):
@@ -152,4 +163,4 @@ def big_bang(indexes, df, nodes, battery_map, dt, cfl, dimensionless, rescale_t,
         gamma_map.append(gamma)
         phi_map.append(phi)
 
-    return x, interphase_position, _e_modulus_dict, gamma_map, phi_map, materials_summary, nodes, dx, max_velocity, _thickness_dict
+    return x, interphase_position, _e_modulus_dict, gamma_map, phi_map, materials_summary, nodes, dx, max_velocity, _thickness_dict, _rho_dict

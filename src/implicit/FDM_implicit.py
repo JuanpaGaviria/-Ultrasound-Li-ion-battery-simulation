@@ -9,7 +9,7 @@ from scipy.sparse import csc_matrix
 
 
 def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, battery_map, _e_modulus_dict, _thickness_dict, 
-                    gamma_map, phi_map, interpolation_points, plot, rescale_x, rescale_thickness, tol, condition_number,dx):
+                    gamma_map, phi_map, interpolation_points, plot, rescale_x, rescale_thickness, tol, condition_number,dx,_rho_dict):
 
     sb = status_bar(n_steps)
     # Matrix definition and vectors
@@ -86,24 +86,13 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
                         if node_count == interphase_node[interphase_count]:  # interphase
                             material_1 = battery_map[interphase_count]
                             e_modulus_1 = _e_modulus_dict[material_1]
+                            rho_1 = _rho_dict[material_1]
 
-                            # if rescale_x or rescale_thickness:
-                            #     if rescale_thickness:
-                            #         l_1 = _thickness_dict[material_1]
-                            #         l_2 = _thickness_dict[material_2]
-                            #     else:
-                            #         l_1 = rescale_x
-                            #         l_2 = rescale_x
-                            # else:
-                            #     l_1 = 1
-                            #     l_2 = 1
-
-                            l_1 = 1
-                            l_2 = 1
-    
                             material_2 = battery_map[interphase_count + 1]
                             e_modulus_2 = _e_modulus_dict[material_2]
-                            formulation.alpha_m(e_modulus_1, e_modulus_2, l_1, l_2, rescale_x)
+                            rho_2 = _rho_dict[material_2]
+
+                            formulation.alpha_m(e_modulus_1, e_modulus_2,rho_1,rho_2)
                             alpha = formulation.alpha
                             formulation.time_0_interphase(alpha)
                             a[node_count, node_count - 2] = formulation.a_i_i_2
@@ -250,24 +239,13 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
                         if node_count == interphase_node[interphase_count]:  # interface
                             material_1 = battery_map[interphase_count]
                             e_modulus_1 = _e_modulus_dict[material_1]
-                            # if rescale_x or rescale_thickness:
-                            #     if rescale_thickness:
-                            #         l_1 = _thickness_dict[material_1]
-                            #         l_2 = _thickness_dict[material_2]
-                            #     else:
-                            #         l_1 = rescale_x
-                            #         l_2 = rescale_x
-                            # else:
-                            #     l_1 = 1
-                            #     l_2 = 1
-
-                            l_1 = 1
-                            l_2 = 1
-
+                            rho_1 = _rho_dict[material_1]
 
                             material_2 = battery_map[interphase_count + 1]
                             e_modulus_2 = _e_modulus_dict[material_2]
-                            formulation.alpha_m(e_modulus_1, e_modulus_2, l_1, l_2, rescale_x)
+                            rho_2 = _rho_dict[material_2]
+
+                            formulation.alpha_m(e_modulus_1, e_modulus_2,rho_1,rho_2)
                             alpha = formulation.alpha
                             formulation.interphase(alpha)
                             a[node_count, node_count - 2] = formulation.a_i_i_2
@@ -463,11 +441,9 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
                         if node_count == interphase_node[interphase_count]:  # interface
                             material_1 = battery_map[interphase_count]
                             e_modulus_1 = _e_modulus_dict[material_1]
-                            l_1 = _thickness_dict[material_1]
                             material_2 = battery_map[interphase_count + 1]
                             e_modulus_2 = _e_modulus_dict[material_2]
-                            l_2 = _thickness_dict[material_2]
-                            formulation.alpha_m(e_modulus_1, e_modulus_2, l_1, l_2, rescale_x)
+                            formulation.alpha_m(e_modulus_1, e_modulus_2)
                             alpha = formulation.alpha
                             formulation.interphase(alpha)
                             a[node_count, node_count - 2] = formulation.a_i_i_2
