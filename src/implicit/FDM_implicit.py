@@ -117,7 +117,7 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
 
                     else:  # last material
                         if node_count == interphase_node[interphase_count] + 1:  # takes a node at its left interphase
-                            gamma = gamma_map[interphase_count]
+                            gamma = gamma_map[interphase_count+1]
                             formulation.time_0_node_1_interphase(gamma, initial_velocity, dt, uj0[node_count])
                             a[node_count, node_count - 1] = formulation.a_i_i_1
                             a[node_count, node_count] = formulation.a_i_i
@@ -125,7 +125,7 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
                             b[node_count] = formulation.b
 
                         if (node_count > interphase_node[-1] + 1) and (node_count < nodes - 2):  # central nodes
-                            phi = phi_map[interphase_count]
+                            phi = phi_map[interphase_count+1]
                             formulation.time_0_internal_node(phi, initial_velocity, dt, uj0[node_count])
                             a[node_count, node_count - 2] = formulation.a_i_i_2
                             a[node_count, node_count - 1] = formulation.a_i_i_1
@@ -135,7 +135,7 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
                             b[node_count] = formulation.b
 
                         if node_count == nodes - 2:  # Penultimate node
-                            gamma = gamma_map[interphase_count]
+                            gamma = gamma_map[interphase_count+1]
                             formulation.time_0_penultimate_node(gamma, initial_velocity, dt, uj0[node_count])
 
                             a[node_count, node_count - 1] = formulation.a_i_i_1
@@ -144,7 +144,7 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
                             b[node_count] = formulation.b
 
                         if node_count == nodes - 1:  # last node
-                            gamma = gamma_map[interphase_count]
+                            gamma = gamma_map[interphase_count+1]
                             formulation.time_0_last_node()
                             a[node_count, node_count - 1] = formulation.a_i_i_1
                             a[node_count, node_count] = formulation.a_i_i
@@ -270,7 +270,7 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
 
                     else:
                         if node_count == interphase_node[interphase_count] + 1:  # takes a node at its left interphase
-                            gamma = gamma_map[interphase_count]
+                            gamma = gamma_map[interphase_count+1]
                             formulation.node_1_interphase(gamma, uj0[node_count], uj_1[node_count])
                             a[node_count, node_count - 1] = formulation.a_i_i_1
                             a[node_count, node_count] = formulation.a_i_i
@@ -278,7 +278,7 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
                             b[node_count] = formulation.b
 
                         if (node_count > interphase_node[-1] + 1) and (node_count < nodes - 2):  # central nodes
-                            phi = phi_map[interphase_count]
+                            phi = phi_map[interphase_count+1]
                             formulation.internal_node(phi, uj0[node_count], uj_1[node_count])
                             a[node_count, node_count - 2] = formulation.a_i_i_2
                             a[node_count, node_count - 1] = formulation.a_i_i_1
@@ -288,7 +288,7 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
                             b[node_count] = formulation.b
 
                         if node_count == nodes - 2:
-                            phi = phi_map[interphase_count]
+                            phi = phi_map[interphase_count+1]
                             formulation.penultimate_node(gamma, uj0[node_count], uj_1[node_count])
 
                             a[node_count, node_count - 1] = formulation.a_i_i_1
@@ -297,7 +297,7 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
                             b[node_count] = formulation.b
 
                         if node_count == nodes - 1:
-                            gamma = gamma_map[interphase_count]
+                            gamma = gamma_map[interphase_count+1]
                             formulation.last_node()
                             a[node_count, node_count - 1] = formulation.a_i_i_1
                             a[node_count, node_count] = formulation.a_i_i

@@ -29,5 +29,5 @@ def graph(nodes, file, n_steps, dimensionless_length, path, fig_steps, low_limit
     plt.ylabel('Deformation')
     plt.grid()
     #save animation
-    anim.save(f'wave_implicit_{file}.gif', fps=60)
+    anim.save(f'{file}.gif', fps=60)
     print(f'Saved animation: wave_implicit{file}.gif')
