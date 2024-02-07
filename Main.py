@@ -32,8 +32,8 @@ saving_path = 'src/result_processing/Simulation'
 url = './src/database/materials_properties.csv'
 initial_velocity = 0
 df = pd.read_csv(url, dtype=object)
-indexes =  [32,33,32,34,36,35,36,34] # materials definition discharged
-geometry_unit = [32,33,32,34,36,35,36,34]  # Geometry
+indexes =  [35,33,35,32,40,34,40,32] # materials definition discharged
+geometry_unit = [35,33,35,32,40,34,40,32]  # Geometry
 
 dt = 3e-4
 nodes = 800
