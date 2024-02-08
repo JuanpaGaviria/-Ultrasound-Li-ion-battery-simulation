@@ -6,7 +6,6 @@ import os
 os.chdir(os.path.dirname(__file__))
 
 # import explicit
-
 # Internal Numerical Methods
 from src.explicit.numerical_method import numerical_method_explicit
 from src.implicit.numerical_method import numerical_method_implicit
@@ -32,25 +31,27 @@ saving_path = 'src/result_processing/Simulation'
 url = './src/database/materials_properties.csv'
 initial_velocity = 0
 df = pd.read_csv(url, dtype=object)
-indexes =  [35,33,35,32,40,34,40,32] # materials definition discharged
-geometry_unit = [35,33,35,32,40,34,40,32]  # Geometry
+indexes =  [39,33,39,32,44,34,44,32]# materials definition discharged
+# indexes =  [39,44]
+geometry_unit = [39,33,39,32,44,34,44,32] # Geometry
+# geometry_unit = [39,44]  # Geometry
 
-dt = 3e-4
-nodes = 800
+dt = 2e-4
+nodes = 1440
 cfl = False
-time = 4
+time = 15
 n_steps = int(time/dt)
-layer_number = 32 # The condition is that the half of the number must be an even number
+layer_number = 48 # The condition is that the half of the number must be an even number
 interpolation_points = 5
 rescale_t = False
 rescale_x = False
 name = 'steps_'f'{n_steps}_nodes_{nodes}_dt_{dt}_int_{interpolation_points}_rt_{rescale_t}_rx_{rescale_x}_geo_unit_{geometry_unit}_layer_n_{layer_number}.csv'
-# nodes = method_switcher.get("implicit")(indexes, geometry_unit  ,layer_number, n_steps, dt, initial_velocity, df, name, saving_path, 
-#                                         main_path, interpolation_points, cfl, nodes, rescale_t, rescale_x, 
-#                                         rescale_thickness=False, case = False, dimensionless=False, input_plot=True, save=True, 
-#                                         tol = 1e-8, condition_number = True,)
-graphic=False
-name = "Caso4_sin_steps_13333_nodes_800_dt_0.0003_int_5_rt_False_rx_False_geo_unit_[32, 33, 32, 34, 36, 35, 36, 34]_layer_n_32.csv"
+nodes = method_switcher.get("implicit")(indexes, geometry_unit  ,layer_number, n_steps, dt, initial_velocity, df, name, saving_path, 
+                                        main_path, interpolation_points, cfl, nodes, rescale_t, rescale_x, 
+                                        rescale_thickness=False, case = False, dimensionless=False, input_plot=False, save=True, 
+                                        tol = 1e-12, condition_number = True,)
+graphic=True
+# name = "Caso4_sin_steps_13333_nodes_800_dt_0.0003_int_5_rt_False_rx_False_geo_unit_[32, 33, 32, 34, 36, 35, 36, 34]_layer_n_32.csv"
 if graphic:
     fig_steps, low_limit, upper_limit, interval = 1e-2/dt, -1.0, 1.0, 1e-10
     graph(nodes, name, n_steps, 1, saving_path, fig_steps, low_limit, upper_limit, interval, dt)

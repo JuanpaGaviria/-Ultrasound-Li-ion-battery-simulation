@@ -152,7 +152,7 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
 
                 # a_inverse = np.linalg.pinv(a)
                 # uj1 = np.dot(a_inverse, b)
-                uj1 = bicgstab(csc_matrix(a), b,tol=tol)[0]
+                uj1 = bicgstab(csc_matrix(a), b,rtol=tol)[0]
                 h[:, j+1] = uj1[:]
                 uj_1 = uj0
                 uj0 = uj1
@@ -310,10 +310,16 @@ def fdm_implicit(interphase_position, nodes, x, n_steps, dt, initial_velocity, b
                     cond_num = np.linalg.cond(a) # No es necesario calcular la inversa
                     print("Condition number: ", cond_num)
 
-                uj1 = bicgstab(csc_matrix(a), b,x0=uj0,tol=tol)[0]
+                uj1,trace = bicgstab(csc_matrix(a), b,x0=uj0,rtol=tol)
                 h[:, j + 1] = uj1[:]
                 uj_1 = uj0
                 uj0 = uj1
+                if j%100 == 0:
+                    if np.max(np.abs(uj1)) > 1.0:
+                        print(f"WARNING!! Max amplitude: {np.max(np.abs(uj1))} at step {j}")
+
+                if trace > 0:
+                    print(f"WARNING!!: bicgstab did not converge at step {j} with {trace} iterations.")
 
                 sb.update(j+1)
 
