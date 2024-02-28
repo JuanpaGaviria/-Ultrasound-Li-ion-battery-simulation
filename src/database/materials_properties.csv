@@ -35,15 +35,27 @@ SS_Separator,,Solido,NaN,NaN,2,1.68,0.029,1.09108945117996,NaN,NaN,NaN,NaN,0.720
 SS_Aluminium current,,Solido,NaN,NaN,20.742,2.7,0.05,2.77168220079832,NaN,NaN,NaN,NaN,69.14
 SS_Copper current,,Solido,NaN,NaN,32.433,8.96,0.01,1.90256523259669,NaN,NaN,NaN,NaN,108.11
 SS_cathodeNCM_0,,Solido,NaN,NaN,12.96,1.54,0.058,2.90096267049137,NaN,NaN,NaN,NaN,12.96
+SS_cathodeNCM_0.1,,,,,12.86625,1.53,0.0581,,,,,,
 SS_cathodeNCM_0.2,,,,,12.77,1.52,0.0582,2.89850233559914,NaN,NaN,NaN,NaN,
+SS_cathodeNCM_0.3,,,,,12.67,1.51,0.0583,,,,,,
 SS_cathodeNCM_0.4,,,,,12.57,1.5,0.0584,2.89482296522603,NaN,NaN,NaN,NaN,
+SS_cathodeNCM_0.5,,,,,12.475,1.49,0.0585,,,,,,
 SS_cathodeNCM_0.6,,,,,12.38,1.48,0.0586,2.8922076109548,NaN,NaN,NaN,NaN,
+SS_cathodeNCM_0.7,,,,,12.28125,1.47,0.0587,,,,,,
 SS_cathodeNCM_0.8,,,,,12.18,1.46,0.0588,2.88833269438004,NaN,NaN,NaN,NaN,
+SS_cathodeNCM_0.9,,,,,12.07625,1.45,0.0589,,,,,,
+SS_cathodeNCM_1.0,,,,,11.97,1.44,0.059,,,,,,
 SS_anodeGraphite_0,,Solido,NaN,NaN,8.58,1.06,0.066,2.84505529342428,NaN,NaN,NaN,NaN,8.579999997
+SS_anodeGraphite_0.1,,,,,9.75,1.05383333333333,0.06665,,,,,,
 SS_anodeGraphite_0.2,,Solido,NaN,NaN,10.92,1.05,0.0673,3.22490309931942,NaN,NaN,NaN,NaN,8.579999997
+SS_anodeGraphite_0.3,,,,,12.09,1.04916666666667,0.06795,,,,,,
 SS_anodeGraphite_0.4,,,,,13.26,1.048,0.0686,3.55705942538569,NaN,NaN,NaN,NaN,
+SS_anodeGraphite_0.5,,,,,14.43,1.045,0.06925,,,,,,
 SS_anodeGraphite_0.6,,,,,15.6,1.042,0.0699,3.86926468635215,NaN,NaN,NaN,NaN,
+SS_anodeGraphite_0.7,,,,,16.77,1.039,0.07055,,,,,,
 SS_anodeGraphite_0.8,,,,,17.94,1.036,0.0712,4.16132218370584,NaN,NaN,NaN,NaN,
+SS_anodeGraphite_0.9,,,,,19.11,1.033,0.07185,,,,,,
+SS_anodeGraphite_1.0,,,,,20.28,1.03,0.0725,,,,,,
 Test,MaterialTest1,Solido,NaN,NaN,109,5.01,10,4.664384957,422,106,422,68.1,
 Test2,MaterialTest2,Solido,NaN,NaN,109,10,10,3.301514804,NaN,NaN,NaN,NaN,
 Test_cathodeNCM_0,,Solido,NaN,NaN,12.96,1.54,0.58,2.90096267,NaN,NaN,NaN,NaN,12.96

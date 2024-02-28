@@ -6,7 +6,7 @@ def output_signal(dt, file):
     Take the signal detected where the wave is passing through the boundary at node 0
     """
 
-    H = np.loadtxt(f'src/result_processing/Simulation/{file}', delimiter=',')
+    H = np.load(f'src/result_processing/Simulation/{file}.npy')
     deformation = []
     times = []
 

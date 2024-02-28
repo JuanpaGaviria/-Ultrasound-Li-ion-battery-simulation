@@ -23,7 +23,8 @@ def numerical_method_implicit(indexes, geometric_unit  ,layer_number, n_steps, d
 
     if save:
         os.chdir(saving_path)
-        np.savetxt(name, H, delimiter=',')
+        # np.savetxt(name, H, delimiter=',')
+        np.save(name, H)
         print('saved: ', f'{name}')
         os.chdir(main_path)
     

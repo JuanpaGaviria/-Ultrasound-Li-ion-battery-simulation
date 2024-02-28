@@ -13,7 +13,7 @@ import os
 
 def graph(nodes, file, n_steps, dimensionless_length, path, fig_steps, low_limit, upper_limit, interval,dt):
     os.chdir(path)
-    h = np.loadtxt(file, delimiter=',')
+    h = np.load(file + '.npy')
     x = np.linspace(0, dimensionless_length, nodes)
 
     fig, ax = plt.subplots()
